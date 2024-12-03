@@ -17,6 +17,10 @@ body {
     overflow: hidden;
 }
 
+.mobile-view {
+    display: none;
+}
+
 #background-layer {
     position: absolute;
     top: 0;
@@ -128,31 +132,47 @@ body {
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .desktop-view {
-        display: block;
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-        position: relative;
+        display: none;
     }
     
     .mobile-view {
-        display: none;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 1000;
     }
 
-    .text-video {
+    .mobile-view video {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100vw;
-        height: 100vh;
-        transform: translate(-50%, -50%);
-        /* Mobile mask settings */
-        -webkit-mask: url(#mobile-mask) no-repeat center;
-        mask: url(#mobile-mask) no-repeat center;
-        -webkit-mask-size: 100% 100%;
-        mask-size: 100% 100%;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        z-index: 1;
+    }
+
+    .mobile-view h2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Instrument Serif', serif;
+        font-size: 8vw;
+        font-weight: 400;
+        color: white;
+        background: rgba(0, 0, 0, 0.9);
+        mix-blend-mode: multiply;
+        margin: 0;
+        padding: 0;
+        text-align: center;
     }
 
     #bg-video {
