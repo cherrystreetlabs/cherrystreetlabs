@@ -128,20 +128,47 @@ body {
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .desktop-view {
-        display: none;
+        display: block;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        position: relative;
     }
     
     .mobile-view {
-        display: block;
-    }
-
-    .text-video {
         display: none;
     }
 
-    .mobile-title {
-        font-size: 2rem;
-        width: 90%;
+    .text-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100vw;
+        height: 100vh;
+        transform: translate(-50%, -50%);
+        /* Mobile mask settings */
+        -webkit-mask: url(#mobile-mask) no-repeat center;
+        mask: url(#mobile-mask) no-repeat center;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    #bg-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(8px);
+    }
+
+    #bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
     }
 
     .nav-items {
