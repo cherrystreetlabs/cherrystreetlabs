@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- testing!!!!! -->
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Cherry Street Labs">
+    <meta property="og:description" content="Innovation in Technology">
+    <meta property="og:image" content="assets/images/cherryimg.jpg">
+    <meta property="og:image:type" content="image">
+    <meta property="og:url" content="https://cherrystreetlabs.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cherry Street Labs">
+    <meta name="twitter:description" content="Innovation in Technology">
+    <meta name="twitter:image" content="assets/images/cherryimg.jpg">
+    <title>Cherry Street Labs</title>
+    
+    <!-- Google Fonts - Instrument Serif -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <!-- Background Video Layer -->
+        <div id="background-layer">
+            <video id="bg-video" autoplay playsinline muted loop>
+                <source src="https://customer-f58al92ht5ee97nr.cloudflarestream.com/aec42afba6b9802d6e9033640dde1a32/downloads/default.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div id="bg-overlay"></div>
+        </div>
+
+        <!-- Text Video Fill Layer -->
+        <video class="text-video" autoplay playsinline muted loop>
+            <source src="https://customer-f58al92ht5ee97nr.cloudflarestream.com/aec42afba6b9802d6e9033640dde1a32/downloads/default.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- SVG Mask Definition Only -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position: absolute;" viewBox="0 0 1000 300">
+            <defs>
+                <mask id="mask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                    <!-- Black background hides everything -->
+                    <rect x="0" y="0" width="1" height="1" fill="black"/>
+                    <!-- White text reveals the video -->
+                    <text 
+                        class="mask-text"
+                        x="0.5" 
+                        y="0.5" 
+                        text-anchor="middle" 
+                        dominant-baseline="middle" 
+                        fill="white"
+                        font-family="Instrument Serif, serif" 
+                        font-weight="500" 
+                        font-size="0.15" 
+                        transform="translate(0.5,0.5) scale(0.5,1) translate(-0.5,-0.5)"
+                    >
+                        Cherry Street Labs
+                    </text>
+                </mask>
+                <mask id="mobile-mask" maskUnits="userSpaceOnUse">
+                    <rect width="1000" height="300" fill="black"/>
+                    <text 
+                        x="500" 
+                        y="150" 
+                        text-anchor="middle" 
+                        dominant-baseline="middle" 
+                        fill="white"
+                        font-family="Instrument Serif, serif" 
+                        font-weight="500" 
+                        font-size="120"
+                    >
+                        Cherry Street Labs
+                    </text>
+                </mask>
+            </defs>
+        </svg>
+    </header>
+
+    <!-- Mobile View -->
+    <div class="mobile-view">
+        <video class="mobile-video" autoplay playsinline muted loop>
+            <source src="assets/videos/CSLMobile.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+    </div>
+
+    <!-- Sticky Navigation Menu -->
+    <!-- <nav class="sticky-nav">
+        <div class="nav-menu">
+            <a href="#" class="nav-item">Home</a>
+            <a href="#" class="nav-item">About</a>
+            <a href="#" class="nav-item">Contact</a>
+        </div>
+    </nav> -->
+
+    <!-- Custom JavaScript (if any) -->
+    <script src="js/main.js"></script>
+</body>
+</html>
