@@ -168,9 +168,9 @@ body {
         font-size: 8vw;
         font-weight: 400;
         color: white;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(0, 0, 0, 0.64);
         mix-blend-mode: multiply;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(10px);
         margin: 0;
         padding: 0;
         text-align: center;
