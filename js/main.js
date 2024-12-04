@@ -58,20 +58,32 @@ function updateViewportHeight() {
 // Initial set on page load
 updateViewportHeight();
 
-
 // Handle resize and orientation changes
 window.addEventListener('resize', () => {
-    updateViewportHeight();
+    requestAnimationFrame(updateViewportHeight);
 });
 
-// Handle iOS Safari address bar hiding/showing
-window.addEventListener('scroll', () => {
-    // Small timeout to let the address bar hide/show
-    setTimeout(updateViewportHeight, 100);
-});
-
-// Handle orientation change explicitly
-window.addEventListener('orientationchange', () => {
-    // Small timeout to let the orientation change complete
-    setTimeout(updateViewportHeight, 200);
-});
+// Handle iOS Safari specifically
+if (/iPhone|iPod|iPad/.test(navigator.platform) || navigator.userAgent.includes("iPhone")) {
+    // Handle scroll events (address bar show/hide)
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(updateViewportHeight);
+    });
+    
+    // Handle orientation change
+    window.addEventListener('orientationchange', () => {
+        // Need a longer timeout for orientation changes
+        setTimeout(updateViewportHeight, 250);
+    });
+    
+    // Additional check for height changes
+    let lastHeight = window.innerHeight;
+    const checkHeight = () => {
+        const newHeight = window.innerHeight;
+        if (newHeight !== lastHeight) {
+            lastHeight = newHeight;
+            updateViewportHeight();
+        }
+    };
+    setInterval(checkHeight, 50);
+}
