@@ -49,9 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to update viewport height
 function updateViewportHeight() {
-    const vh = window.innerHeight * 0.01;
+    // Get the viewport height
+    let vh = window.innerHeight * 0.01;
+    // Set the value in the --vh custom property
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
+
+// Initial set on page load
+updateViewportHeight();
+
 
 // Handle resize and orientation changes
 window.addEventListener('resize', () => {
