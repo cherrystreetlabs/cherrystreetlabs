@@ -96,37 +96,133 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
-    padding: 1rem 0;
-    
-}
-
-.nav-menu {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto;
+    padding: 3rem 0;
 }
 
 .nav-items {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 4rem;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .nav-item {
-    color: #333;
+    color: rgba(0, 0, 0, 0.32);
     text-decoration: none;
     font-family: 'Instrument Serif', serif;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     padding: 0.5rem 1rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .nav-item:hover {
-    color: #666;
+    color: rgba(0, 0, 0, 0.80);
+}
+
+/* Overlay Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;  /* Center vertically */
+    justify-content: center;  /* Center horizontally */
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay.active {
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.overlay-content {
+    position: relative;
+    background: white;
+    padding: 3rem;
+    border-radius: 4px;
+    max-width: 900px;
+    width: 90%;
+    margin: 2rem;
+    display: flex;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
+    gap: 3rem;
+    opacity: 0;
+    transform: scale(0.98) translateY(20px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: calc(100vh - 4rem);  /* Account for margin */
+    overflow: hidden;  /* Contains the children's overflow */
+}
+
+.overlay.active .overlay-content {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.overlay-image {
+    flex: 1;
+}
+
+.overlay-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.overlay-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;  /* Make text area scrollable */
+    padding-right: 1rem;  /* Space for scrollbar */
+}
+
+.overlay-text h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+    color: black;
+    font-weight: 400;
+}
+
+.overlay-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.40);
+}
+
+.close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.16);
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.close-button:hover {
+    opacity: 0.7;
 }
 
 /* Responsive Design */
@@ -175,6 +271,36 @@ body {
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
         z-index: 1;
+    }
+
+    .overlay {
+        align-items: flex-start;
+    }
+
+    .overlay-content {
+        flex-direction: column;
+        padding: 2rem;
+        margin: 1rem;
+        gap: 2rem;
+        height: auto;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+
+    .overlay-image {
+        flex: none;  /* Remove flex growth */
+        width: 100%;
+        height: 300px;
+    }
+
+    .overlay-text {
+        overflow-y: visible;  /* Let parent handle scrolling */
+        padding-right: 0;  /* Remove scrollbar space */
+    }
+    .overlay-image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
     }
 
     .mobile-view h2 {
@@ -236,7 +362,7 @@ body {
 
 @media (max-width: 768px) {
     .sticky-nav {
-        padding: 0.8rem 0;
+        padding: 2rem 0;
     }
     
     .nav-item {

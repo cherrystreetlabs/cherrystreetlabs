@@ -20,8 +20,10 @@
     <meta name="twitter:image" content="https://cherrystreetlabs.com/assets/images/cherryimg.jpg"> 
     <title>Cherry Street Labs</title>
     
-    <!-- Google Fonts - Instrument Serif -->
+   <!-- Google Fonts - Instrument Serif -->
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
@@ -75,6 +77,36 @@
         <div class="mobile-overlay"></div>
         <h2>Cherry Street Labs</h2>
     </div>
+
+    <!-- Who We Are Overlay -->
+    <div id="whoWeAreOverlay" class="overlay">
+        <div class="overlay-content">
+            <div class="overlay-image">
+                <img src="assets/images/whoweare.jpg" alt="Cherry Street Labs Team">
+            </div>
+            <div class="overlay-text">
+                <h3>Over one hundred and twenty years ago...</h3>
+                <p>
+                    Thousands of Italian immigrants arrived in New York City, leaving behind a cherished homeland to build a better future. With determination, they forged new lives for their families and shaped the city itself.
+                    </br>
+                    </br>
+                    From the first Italian enclave on <span style="color: #A0001B;">Cherry Street</span> in Manhattan’s Lower East Side, they built the city’s bridges, subways, churches, and landmarks that endure as symbols of their legacy.
+                    </br>
+                    </br>
+                    We honor this history and embrace their generational spirit of building and creating. Inspired by their drive, we channel that same passion into crafting software for each other and the world.
+                </p>
+            </div>
+            <button id="closeOverlay" class="close-button">&times;</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="sticky-nav">
+        <div class="nav-items">
+            <a href="#" class="nav-item" id="whoWeAreBtn">Who We Are</a>
+            <a href="mailto:ciao@cherrystreetlabs.com" class="nav-item">Contact Us</a>
+        </div>
+    </nav>
 
     <script src="js/main.js"></script>
 </body>

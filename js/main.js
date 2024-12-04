@@ -11,6 +11,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial viewport height calculation
     updateViewportHeight();
+
+    // Who We Are Overlay Functionality
+    const whoWeAreBtn = document.getElementById('whoWeAreBtn');
+    const whoWeAreOverlay = document.getElementById('whoWeAreOverlay');
+    const closeOverlayBtn = document.getElementById('closeOverlay');
+
+    // Open overlay
+    whoWeAreBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        whoWeAreOverlay.style.visibility = 'visible';
+        document.body.style.overflow = 'hidden';
+        // Force a reflow
+        whoWeAreOverlay.offsetHeight;
+        whoWeAreOverlay.classList.add('active');
+    });
+
+    // Close overlay function
+    const closeOverlay = () => {
+        whoWeAreOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            whoWeAreOverlay.style.visibility = 'hidden';
+        }, 500); // Match the transition duration
+    };
+
+    // Close button click
+    closeOverlayBtn.addEventListener('click', closeOverlay);
+
+    // Click outside to close
+    whoWeAreOverlay.addEventListener('click', (e) => {
+        if (e.target === whoWeAreOverlay) {
+            closeOverlay();
+        }
+    });
 });
 
 // Function to update viewport height
