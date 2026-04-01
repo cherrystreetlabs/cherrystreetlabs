@@ -3,11 +3,11 @@
  * Bird's-eye Manhattan grid with glowing vehicles, bloom, mouse parallax.
  */
 
-import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
-import { EffectComposer } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/OutputPass.js';
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 /* ─── Constants ─────────────────────────────────────────────────── */
 const MANHATTAN_ANGLE = 29 * (Math.PI / 180);
