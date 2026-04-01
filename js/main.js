@@ -6,46 +6,44 @@
 function setVh() {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
 }
-
 setVh();
-
-const onVhChange = () => requestAnimationFrame(setVh);
-window.addEventListener('resize', onVhChange);
+window.addEventListener('resize', () => requestAnimationFrame(setVh));
 window.addEventListener('orientationchange', () => setTimeout(setVh, 300));
 
-/* ── Reduced Motion Preference ──────────────────────────────────── */
+/* ── Reduced Motion ─────────────────────────────────────────────── */
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ═══════════════════════════════════════════════════════════════════
-   Manhattan Grid Particle System
-   Bird's-eye NYC traffic: lane flow, motion trails, mouse disruption.
+   NYC Grid Traffic — Bird's Eye View
+
+   Manhattan streets run at ~29° from cardinal north.
+   Looking straight down: lanes appear diagonal but traffic
+   flows CARDINALLY (up/down/left/right relative to the grid),
+   not scattered at random angles.
+
+   Each "lane" = a pair of opposing-direction traffic streams.
+   Particles are car headlights/taillights: bright dots, short trails.
    ═══════════════════════════════════════════════════════════════════ */
-class ManhattanGrid {
+class NYCTraffic {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.particles = [];
         this.raf = null;
         this.mouse = { x: -2000, y: -2000 };
-        this.tick = 0;
-
-        // Fewer lanes, more particles per lane — visible coverage
-        this.numLanes = 22;
-        this.particlesPerLane = 10;
-
-        // NYC street grid angle (~28°)
-        this.gridAngle = 29 * (Math.PI / 180);
-        this.cosA = Math.cos(this.gridAngle);
-        this.sinA = Math.sin(this.gridAngle);
-
-        // Trail fade
-        this.trailAlpha = 0.055;
-
+        this.W = 0; this.H = 0;
         this._resize();
-        window.addEventListener('resize', () => {
-            this._resize();
-        });
 
+        // 16 grid lanes, 18 particles each = 288 particles
+        this.numLanes = 16;
+        this.particlesPerLane = 18;
+        // Extra stationary ambient lights (street lamps, building windows)
+        this.ambientCount = 200;
+
+        // Off-white headlights + amber streetlights (no long red streaks)
+        this.trailAlpha = 0.03;
+
+        window.addEventListener('resize', () => this._resize());
         document.addEventListener('mousemove', (e) => {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
@@ -54,7 +52,6 @@ class ManhattanGrid {
             this.mouse.x = -2000;
             this.mouse.y = -2000;
         });
-
         document.addEventListener('touchmove', (e) => {
             if (e.touches.length > 0) {
                 this.mouse.x = e.touches[0].clientX;
@@ -72,74 +69,129 @@ class ManhattanGrid {
         this.H = this.canvas.height = window.innerHeight;
     }
 
-    /* Spawn a particle within visible screen bounds, flowing in grid direction */
-    _spawn(speedClass, direction) {
-        // Speed: class 0=side streets (slow), 1=avenues (medium), 2=faster avenues
-        const speedMap = [0.6, 1.4, 2.4];
-        const speed = speedMap[speedClass] * (0.7 + Math.random() * 0.5);
+    _spawnTraffic(lane) {
+        const { W, H } = this;
+        // Speed classes: 0=slow (side streets), 1=medium, 2=avenues
+        const speeds = [0.55, 1.1, 1.9];
+        const speed = speeds[lane.speedClass] * (0.75 + Math.random() * 0.5);
 
-        // Spawn at a random screen position, flowing in the lane direction
-        let x, y;
-        const startSide = Math.random();
-        if (direction > 0) {
-            // Flowing right and down — spawn on left edge
-            x = Math.random() * this.W * 0.6;
-            y = this.H + 10;
+        let x, y, vx, vy;
+
+        if (lane.orientation === 'v') {
+            // Vertical lanes — traffic goes UP or DOWN
+            x = lane.x + (Math.random() - 0.5) * 24;
+            vx = 0;
+            vy = lane.direction * speed;
+            if (vy > 0) {
+                // Going down — start at top
+                y = lane.direction > 0 ? -8 : H + 8;
+            } else {
+                y = lane.direction > 0 ? -8 : H + 8;
+            }
         } else {
-            // Flowing left and up — spawn on right edge
-            x = this.W * 0.4 + Math.random() * this.W * 0.6;
-            y = -10;
+            // Horizontal lanes — traffic goes LEFT or RIGHT
+            y = lane.y + (Math.random() - 0.5) * 24;
+            vy = 0;
+            vx = lane.direction * speed;
+            if (vx > 0) {
+                x = W + 8;
+            } else {
+                x = -8;
+            }
         }
 
-        // Add perpendicular scatter so lanes aren't a single line
-        const perpOff = (Math.random() - 0.5) * 30;
+        // Color: off-white headlights (75%), warm amber streetlights (25%)
+        const isHeadlight = Math.random() < 0.75;
+        const color = isHeadlight
+            ? { r: 255, g: 248, b: 235 }
+            : { r: 255, g: 185, b: 70 };
 
-        const vx = this.cosA * speed * direction;
-        const vy = this.sinA * speed * direction;
-
-        // Color: white headlights / amber streetlights / red taillights / blue windows
-        const roll = Math.random();
-        let color, radius;
-        if (roll < 0.42) {
-            color = { r: 255, g: 248, b: 235 }; radius = Math.random() * 1.4 + 0.5; // warm white
-        } else if (roll < 0.65) {
-            color = { r: 255, g: 175, b: 50 };  radius = Math.random() * 1.6 + 0.5; // amber
-        } else if (roll < 0.82) {
-            color = { r: 255, g: 55, b: 35 };   radius = Math.random() * 1.2 + 0.4; // red tail
-        } else {
-            color = { r: 190, g: 215, b: 255 }; radius = Math.random() * 0.8 + 0.3; // blue-white
-        }
+        // Short trail: length based on speed, max 2px
+        const trailLen = Math.min(speed * 0.6, 2.5);
 
         return {
-            x, y,
-            vx, vy,
+            x, y, vx, vy,
             baseVx: vx, baseVy: vy,
-            perpOff,
-            radius,
+            speed,
             color,
-            alpha: Math.random() * 0.45 + 0.2,
-            flicker: 0,
-            flickerDir: Math.random() > 0.5 ? 1 : -1,
-            speedClass,
-            direction,
+            radius: isHeadlight ? (Math.random() * 0.7 + 0.5) : (Math.random() * 1.1 + 0.7),
+            alpha: isHeadlight ? 0.75 : 0.6,
+            trailLen,
+            flickerPhase: Math.random() * Math.PI * 2,
+            flickerSpeed: Math.random() * 0.06 + 0.01,
+            lane,
         };
     }
 
-    init() {
-        this.particles = [];
-        const total = this.numLanes * this.particlesPerLane;
+    _spawnAmbient() {
+        const { W, H } = this;
+        const x = Math.random() * W;
+        const y = Math.random() * H;
+        const roll = Math.random();
+        // Mostly warm streetlight amber, some blue-white building windows
+        const color = roll < 0.65
+            ? { r: 255, g: 175, b: 55, a: 0.15 }
+            : { r: 180, g: 210, b: 255, a: 0.1 };
+        return {
+            x, y,
+            color,
+            radius: Math.random() * 1.2 + 0.3,
+            flicker: Math.random() * Math.PI * 2,
+            flickerSpeed: Math.random() * 0.02 + 0.005,
+        };
+    }
 
-        for (let i = 0; i < total; i++) {
-            const laneIdx = i % this.numLanes;
-            // Alternate directions in pairs so adjacent lanes flow opposite
-            const direction = laneIdx % 2 === 0 ? 1 : -1;
-            // Speed class cycles every 3 lanes
-            const speedClass = laneIdx % 3;
-            const p = this._spawn(speedClass, direction);
-            // Scatter initial positions so they're not all at the edge
-            p.x = Math.random() * this.W;
-            p.y = Math.random() * this.H;
-            this.particles.push(p);
+    _buildLanes() {
+        const { W, H } = this;
+        this.lanes = [];
+
+        // Vertical lanes (N-S traffic)
+        const numV = Math.floor(this.numLanes / 2);
+        for (let i = 0; i < numV; i++) {
+            const x = (i / numV) * W + (Math.random() * 30 - 15);
+            this.lanes.push({
+                orientation: 'v',
+                x: Math.max(20, Math.min(W - 20, x)),
+                direction: i % 2 === 0 ? 1 : -1,
+                speedClass: i % 3,
+            });
+        }
+
+        // Horizontal lanes (E-W traffic)
+        const numH = this.numLanes - numV;
+        for (let i = 0; i < numH; i++) {
+            const y = (i / numH) * H + (Math.random() * 30 - 15);
+            this.lanes.push({
+                orientation: 'h',
+                y: Math.max(20, Math.min(H - 20, y)),
+                direction: i % 2 === 0 ? 1 : -1,
+                speedClass: i % 3,
+            });
+        }
+    }
+
+    init() {
+        this._buildLanes();
+        this.particles = [];
+        this.ambient = [];
+
+        // Traffic particles
+        for (const lane of this.lanes) {
+            for (let i = 0; i < this.particlesPerLane; i++) {
+                const p = this._spawnTraffic(lane);
+                // Scatter initial positions so traffic fills the screen
+                if (lane.orientation === 'v') {
+                    p.y = Math.random() * this.H;
+                } else {
+                    p.x = Math.random() * this.W;
+                }
+                this.particles.push(p);
+            }
+        }
+
+        // Ambient stationary lights (street lamps, building windows)
+        for (let i = 0; i < this.ambientCount; i++) {
+            this.ambient.push(this._spawnAmbient());
         }
 
         this.canvas.classList.add('visible');
@@ -147,73 +199,92 @@ class ManhattanGrid {
 
     update() {
         const { W, H, mouse } = this;
-        this.tick++;
 
         for (let i = 0; i < this.particles.length; i++) {
             const p = this.particles[i];
+            const { orientation } = p.lane;
 
-            // Mouse disruption — push away from cursor
+            // Mouse disruption — soft radial push
             const dx = p.x - mouse.x;
             const dy = p.y - mouse.y;
             const distSq = dx * dx + dy * dy;
-            const disruptR = 120;
+            const disruptR = 110;
             if (distSq < disruptR * disruptR && distSq > 0.01) {
                 const dist = Math.sqrt(distSq);
-                const force = (1 - dist / disruptR) * 2.0;
+                const force = (1 - dist / disruptR) * 1.8;
                 p.vx += (dx / dist) * force;
                 p.vy += (dy / dist) * force;
             }
 
             // Return to lane flow
-            p.vx += (p.baseVx - p.vx) * 0.04;
-            p.vy += (p.baseVy - p.vy) * 0.04;
+            p.vx += (p.baseVx - p.vx) * 0.05;
+            p.vy += (p.baseVy - p.vy) * 0.05;
 
             p.x += p.vx;
             p.y += p.vy;
 
             // Flicker
-            p.flicker += 0.04 * p.flickerDir;
-            if (p.flicker > 1 || p.flicker < -1) p.flickerDir *= -1;
+            p.flickerPhase += p.flickerSpeed;
 
             // Respawn when out of bounds
-            const margin = 80;
+            const margin = 60;
             if (p.x < -margin || p.x > W + margin || p.y < -margin || p.y > H + margin) {
-                const speedClass = Math.floor(Math.random() * 3);
-                const direction = Math.random() > 0.5 ? 1 : -1;
-                const np = this._spawn(speedClass, direction);
-                // Scatter new particle somewhere visible
-                np.x = Math.random() * W;
-                np.y = Math.random() * H;
-                this.particles[i] = np;
+                this.particles[i] = this._spawnTraffic(p.lane);
             }
+        }
+
+        // Ambient flicker
+        for (const a of this.ambient) {
+            a.flicker += a.flickerSpeed;
+            if (a.flicker > Math.PI) a.flicker = 0;
         }
     }
 
     draw() {
         const { ctx, W, H } = this;
 
-        // Trail fade — dark overlay creates motion streak effect
-        ctx.fillStyle = `rgba(10, 10, 14, ${this.trailAlpha})`;
+        // Dark trail fade — this creates the comet streak effect
+        ctx.fillStyle = `rgba(8, 8, 12, ${this.trailAlpha})`;
         ctx.fillRect(0, 0, W, H);
 
+        // Ambient lights (static city glow — no trails, just dots)
+        for (const a of this.ambient) {
+            const fa = 0.5 + Math.sin(a.flicker) * 0.3;
+            ctx.save();
+            ctx.globalAlpha = a.color.a * fa;
+            ctx.shadowColor = `rgb(${a.color.r},${a.color.g},${a.color.b})`;
+            ctx.shadowBlur = 6;
+            ctx.fillStyle = `rgb(${a.color.r},${a.color.g},${a.color.b})`;
+            ctx.beginPath();
+            ctx.arc(a.x, a.y, a.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Traffic particles — bright head dot with very short trail
         for (const p of this.particles) {
-            const flicker = Math.sin(p.flicker) * 0.06;
-            const alpha = Math.max(0.08, Math.min(0.7, p.alpha + flicker));
+            const flicker = Math.sin(p.flickerPhase) * 0.05;
+            const alpha = Math.max(0.4, Math.min(0.9, p.alpha + flicker));
             const { r, g, b } = p.color;
 
-            // Motion trail — length proportional to speed
+            // Short tail — just 1-2px in direction of travel
             const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-            const trailLen = Math.min(speed * 2.8, 10);
-            const nx = p.vx / speed;
-            const ny = p.vy / speed;
-            const tx = p.x - nx * trailLen;
-            const ty = p.y - ny * trailLen;
+            const tLen = p.trailLen;
+            const nx = speed > 0.01 ? p.vx / speed : 0;
+            const ny = speed > 0.01 ? p.vy / speed : 0;
+            const tx = p.x - nx * tLen;
+            const ty = p.y - ny * tLen;
 
-            // Streak
             ctx.save();
-            ctx.globalAlpha = alpha * 0.75;
+
+            // Soft glow around the light
+            ctx.shadowColor = `rgb(${r},${g},${b})`;
+            ctx.shadowBlur = 7;
+
+            // Trail segment
+            ctx.globalAlpha = alpha * 0.6;
             ctx.strokeStyle = `rgb(${r},${g},${b})`;
-            ctx.lineWidth = p.radius * 1.1;
+            ctx.lineWidth = p.radius * 0.9;
             ctx.lineCap = 'round';
             ctx.beginPath();
             ctx.moveTo(tx, ty);
@@ -222,10 +293,11 @@ class ManhattanGrid {
 
             // Bright head dot
             ctx.globalAlpha = alpha;
-            ctx.fillStyle = `rgb(${Math.min(255, r + 25)},${Math.min(255, g + 18)},${Math.min(255, b + 10)})`;
+            ctx.fillStyle = `rgb(${Math.min(255, r + 20)},${Math.min(255, g + 15)},${Math.min(255, b + 8)})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius * 0.65, 0, Math.PI * 2);
             ctx.fill();
+
             ctx.restore();
         }
     }
@@ -248,7 +320,7 @@ class ManhattanGrid {
     }
 }
 
-/* ── Mouse Parallax Tilt ────────────────────────────────────────── */
+/* ── Mouse Parallax Tilt ───────────────────────────────────────── */
 class ParallaxTilt {
     constructor(el) {
         this.el = el;
@@ -257,20 +329,15 @@ class ParallaxTilt {
         this.target = { x: 0, y: 0 };
         this._strength = 8;
 
-        document.addEventListener('mousemove', (e) => this._onMove(e));
-        document.addEventListener('mouseleave', () => this._onLeave());
-    }
-
-    _onMove(e) {
-        const { innerWidth: W, innerHeight: H } = window;
-        this.target.x = (e.clientX / W - 0.5);
-        this.target.y = (e.clientY / H - 0.5);
-        if (!this.raf) this._loop();
-    }
-
-    _onLeave() {
-        this.target.x = 0;
-        this.target.y = 0;
+        document.addEventListener('mousemove', (e) => {
+            this.target.x = (e.clientX / window.innerWidth - 0.5);
+            this.target.y = (e.clientY / window.innerHeight - 0.5);
+            if (!this.raf) this._loop();
+        });
+        document.addEventListener('mouseleave', () => {
+            this.target.x = 0;
+            this.target.y = 0;
+        });
     }
 
     _loop() {
@@ -284,7 +351,6 @@ class ParallaxTilt {
         this.el.style.transform =
             `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
 
-        // Keep looping if still active
         if (Math.abs(this.target.x) > 0.001 || Math.abs(this.target.y) > 0.001 ||
             Math.abs(this.current.x) > 0.001 || Math.abs(this.current.y) > 0.001) {
             this.raf = requestAnimationFrame(() => this._loop());
@@ -298,7 +364,7 @@ class ParallaxTilt {
 const whoWeAreBtn = document.getElementById('whoWeAreBtn');
 const overlay     = document.getElementById('whoWeAreOverlay');
 const closeBtn    = document.getElementById('closeOverlay');
-let gridInstance  = null;
+let trafficInstance = null;
 
 function openOverlay(e) {
     if (e) e.preventDefault();
@@ -307,7 +373,7 @@ function openOverlay(e) {
     overlay.offsetHeight;
     overlay.classList.add('active');
     closeBtn.focus();
-    if (gridInstance) gridInstance.stop();
+    if (trafficInstance) trafficInstance.stop();
 }
 
 function closeOverlay() {
@@ -318,9 +384,9 @@ function closeOverlay() {
             overlay.style.visibility = 'hidden';
         }
     }, 500);
-    if (gridInstance) {
-        gridInstance.raf = null;
-        gridInstance.start();
+    if (trafficInstance) {
+        trafficInstance.raf = null;
+        trafficInstance.start();
     }
 }
 
@@ -337,9 +403,9 @@ document.addEventListener('keydown', (e) => {
 requestAnimationFrame(() => {
     const canvas = document.getElementById('particle-canvas');
     if (canvas && !prefersReducedMotion) {
-        gridInstance = new ManhattanGrid(canvas);
-        gridInstance.init();
-        gridInstance.start();
+        trafficInstance = new NYCTraffic(canvas);
+        trafficInstance.init();
+        trafficInstance.start();
     }
 
     const panel = document.getElementById('brand-panel');
