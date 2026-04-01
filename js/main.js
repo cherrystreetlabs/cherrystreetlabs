@@ -10,36 +10,7 @@ setVh();
 window.addEventListener('resize', () => requestAnimationFrame(setVh));
 window.addEventListener('orientationchange', () => setTimeout(setVh, 300));
 
-/* ── Film Grain — subtle analog texture ─────────────────────────── */
-(function grainEffect() {
-    const canvas = document.getElementById('grain');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w, h, raf;
-
-    function resize() {
-        w = canvas.width  = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    function draw() {
-        const img = ctx.createImageData(w, h);
-        const d = img.data;
-        for (let i = 0, n = d.length; i < n; i += 4) {
-            const v = Math.random() * 255;
-            d[i] = d[i+1] = d[i+2] = v;
-            d[i+3] = 14; // very faint
-        }
-        ctx.putImageData(img, 0, 0);
-        raf = requestAnimationFrame(draw);
-    }
-
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        draw();
-    }
-})();
+/* ── Background effect handled by js/ascii-fluid.js ────────────── */
 
 /* ── Overlay ─────────────────────────────────────────────────────── */
 const whoWeAreBtn = document.getElementById('whoWeAreBtn');
