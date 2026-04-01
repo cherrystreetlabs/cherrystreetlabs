@@ -1,8 +1,7 @@
 /* ============================================
-   Cherry Street Labs — Optimized Styles
+   Cherry Street Labs — Styles
    ============================================ */
 
-/* Reset and Base */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -11,46 +10,37 @@
 
 :root {
     --vh: 1vh;
-    --blur-amount: 18px;
-    --glass-opacity: 0.12;
-    --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.12);
+    --glass-opacity: 0.10;
+    --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.2);
 }
 
 body {
-    background: #0a0a0a;
+    background: #05050a;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
 }
 
 /* ============================================
-   Particle Canvas
+   Three.js Traffic Canvas
    ============================================ */
 
-#particle-canvas {
+#traffic-canvas {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 5;
-    pointer-events: none;
+    z-index: 0;
     opacity: 0;
-    transition: opacity 1.5s ease;
+    transition: opacity 1.8s ease;
 }
 
-#particle-canvas.visible {
+#traffic-canvas.visible {
     opacity: 1;
 }
 
 /* ============================================
    Desktop Header & Brand Panel
    ============================================ */
-
-.desktop-view {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
 
 header {
     position: relative;
@@ -61,27 +51,13 @@ header {
     justify-content: center;
 }
 
-/* Background Video */
-#background-layer {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-}
-
-#bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(var(--blur-amount)) brightness(0.7);
-}
-
 #bg-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.08);
+    z-index: 1;
+    pointer-events: none;
 }
 
-/* Frosted Glass Brand Panel — replaces GIF-mask technique */
 #brand-panel {
     position: relative;
     z-index: 10;
@@ -91,15 +67,14 @@ header {
     text-align: center;
     padding: 3rem 4rem;
     background: rgba(255, 255, 255, var(--glass-opacity));
-    backdrop-filter: blur(calc(var(--blur-amount) * 0.75));
-    -webkit-backdrop-filter: blur(calc(var(--blur-amount) * 0.75));
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 6px;
     box-shadow:
-        0 8px 40px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 8px 40px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     animation: panelFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-    /* 3D tilt — set dynamically via JS */
     transform-style: preserve-3d;
     will-change: transform;
 }
@@ -119,7 +94,6 @@ header {
     display: inline-block;
 }
 
-/* Brand Text — sharp SVG-quality via text-rendering */
 .brand-text {
     font-family: 'Instrument Serif', Georgia, serif;
     font-weight: 400;
@@ -136,10 +110,9 @@ header {
     opacity: 0.88;
 }
 
-/* Fallback for browsers without backdrop-filter */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     #brand-panel {
-        background: rgba(255, 255, 255, 0.72);
+        background: rgba(20, 20, 30, 0.85);
     }
 }
 
@@ -155,23 +128,14 @@ header {
     overflow: hidden;
 }
 
-.mobile-view video {
+.mobile-bg {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    object-fit: cover;
-    min-height: -webkit-fill-available;
-}
-
-.mobile-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.58);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 1;
+    background:
+        radial-gradient(ellipse at 30% 40%, rgba(255, 200, 80, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 60%, rgba(100, 140, 255, 0.04) 0%, transparent 50%),
+        linear-gradient(180deg, #08081a 0%, #0a0a14 100%);
+    z-index: 0;
 }
 
 .mobile-title {
@@ -183,12 +147,12 @@ header {
     font-family: 'Instrument Serif', Georgia, serif;
     font-size: clamp(2rem, 10vw, 4.5rem);
     font-weight: 400;
-    color: #0a0a0a;
+    color: rgba(255, 255, 255, 0.88);
     text-align: center;
     margin: 0;
     padding: 2rem;
     z-index: 2;
-    mix-blend-mode: overlay;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
 }
@@ -216,18 +180,17 @@ header {
 }
 
 .nav-item {
-    color: rgba(255, 255, 255, 0.48);
+    color: rgba(255, 255, 255, 0.42);
     text-decoration: none;
     font-family: 'Instrument Serif', Georgia, serif;
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
-    transition: color 0.25s ease, opacity 0.25s ease;
+    transition: color 0.25s ease;
     letter-spacing: 0.01em;
 }
 
 .nav-item:hover {
-    color: rgba(255, 255, 255, 0.92);
-    opacity: 1;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* ============================================
@@ -351,25 +314,12 @@ header {
     background: rgba(0, 0, 0, 0.06);
 }
 
-/* ============================================
-   Scrollbar Styling (Overlay)
-   ============================================ */
-
-.overlay-text::-webkit-scrollbar {
-    width: 4px;
-}
-
-.overlay-text::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.overlay-text::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: 2px;
-}
+.overlay-text::-webkit-scrollbar { width: 4px; }
+.overlay-text::-webkit-scrollbar-track { background: transparent; }
+.overlay-text::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.18); border-radius: 2px; }
 
 /* ============================================
-   Responsive — Tablet & Mobile
+   Responsive — Mobile
    ============================================ */
 
 @media screen and (max-width: 768px) {
@@ -377,29 +327,19 @@ header {
         display: none;
     }
 
+    #traffic-canvas {
+        display: none;
+    }
+
     .mobile-view {
         display: block;
     }
 
-    .sticky-nav {
-        padding: 2rem 0;
-        z-index: 1000;
-    }
+    .sticky-nav { padding: 2rem 0; }
+    .nav-items { gap: 1.5rem; }
+    .nav-item { font-size: 1rem; padding: 0.4rem 0.8rem; }
 
-    .nav-items {
-        gap: 1.5rem;
-    }
-
-    .nav-item {
-        font-size: 1rem;
-        padding: 0.4rem 0.8rem;
-    }
-
-    /* Overlay — mobile layout */
-    .overlay {
-        align-items: flex-start;
-        padding: 0;
-    }
+    .overlay { align-items: flex-start; padding: 0; }
 
     .overlay-content {
         flex-direction: column;
@@ -417,37 +357,14 @@ header {
         transform: none !important;
     }
 
-    .overlay.active .overlay-content {
-        transform: none !important;
-    }
+    .overlay.active .overlay-content { transform: none !important; }
 
-    .overlay-image {
-        flex: none;
-        width: 100%;
-        height: 240px;
-        flex-shrink: 0;
-    }
+    .overlay-image { flex: none; width: 100%; height: 240px; flex-shrink: 0; }
+    .overlay-image img { width: 100%; height: 100%; object-fit: cover; }
 
-    .overlay-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .overlay-text {
-        overflow-y: visible;
-        padding-right: 0;
-        gap: 1rem;
-    }
-
-    .overlay-text h3 {
-        font-size: 1.5rem;
-    }
-
-    .overlay-text p {
-        font-size: 0.88rem;
-        line-height: 1.65;
-    }
+    .overlay-text { overflow-y: visible; padding-right: 0; gap: 1rem; }
+    .overlay-text h3 { font-size: 1.5rem; }
+    .overlay-text p { font-size: 0.88rem; line-height: 1.65; }
 
     .close-button {
         position: fixed;
@@ -455,61 +372,18 @@ header {
         right: max(env(safe-area-inset-right), 1rem);
         background: rgba(0, 0, 0, 0.06);
         border-radius: 50%;
-        width: 2.5rem;
-        height: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 2.5rem; height: 2.5rem;
+        display: flex; align-items: center; justify-content: center;
         font-size: 1.4rem;
     }
-
-    /* Fallback for mobile without backdrop-filter */
-    @supports not ((backdrop-filter: blur(6px)) or (-webkit-backdrop-filter: blur(6px))) {
-        .mobile-overlay {
-            background: rgba(255, 255, 255, 0.88);
-        }
-
-        .overlay {
-            background: rgba(0, 0, 0, 0.92);
-        }
-    }
-
-    /* Ensure viewport height is correct on iOS Safari */
-    @supports (-webkit-touch-callout: none) {
-        .mobile-view video,
-        .mobile-overlay,
-        .mobile-title {
-            height: 100vh;
-            height: -webkit-fill-available;
-        }
-    }
 }
-
-/* ============================================
-   Large Desktop — Cap the brand panel
-   ============================================ */
 
 @media screen and (min-width: 1400px) {
-    #brand-panel {
-        padding: 4rem 5rem;
-    }
+    #brand-panel { padding: 4rem 5rem; }
 }
 
-/* ============================================
-   Reduced Motion
-   ============================================ */
-
 @media (prefers-reduced-motion: reduce) {
-    #brand-panel {
-        animation: none;
-    }
-
-    #bg-video {
-        animation: none;
-    }
-
-    .overlay,
-    .overlay-content {
-        transition: none;
-    }
+    #brand-panel { animation: none; }
+    .overlay, .overlay-content { transition: none; }
+    #traffic-canvas { display: none; }
 }

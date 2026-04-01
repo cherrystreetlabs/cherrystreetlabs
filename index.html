@@ -32,15 +32,11 @@
 </head>
 <body>
     <header>
-        <!-- Background Video Layer -->
-        <div id="background-layer">
-            <video id="bg-video" autoplay playsinline muted loop poster="assets/images/poster.jpg">
-                <source src="assets/videos/background.webm" type="video/webm">
-            </video>
-            <div id="bg-overlay"></div>
-        </div>
+        <!-- Three.js NYC Traffic Scene (replaces video) -->
+        <canvas id="traffic-canvas"></canvas>
+        <div id="bg-overlay"></div>
 
-        <!-- Frosted Glass Text Panel — no lag, no GIF sync issues -->
+        <!-- Frosted Glass Brand Panel -->
         <div id="brand-panel" aria-label="Cherry Street Labs">
             <div class="brand-inner">
                 <h1 class="brand-text">Cherry Street<br><span class="brand-text-thin">Labs</span></h1>
@@ -48,12 +44,9 @@
         </div>
     </header>
 
-    <!-- Mobile View -->
+    <!-- Mobile View — static poster with gradient fallback -->
     <div class="mobile-view">
-        <video autoplay playsinline muted loop poster="assets/images/poster.jpg">
-            <source src="assets/videos/background.webm" type="video/webm">
-        </video>
-        <div class="mobile-overlay"></div>
+        <div class="mobile-bg"></div>
         <h2 class="mobile-title">Cherry Street Labs</h2>
     </div>
 
@@ -79,9 +72,6 @@
         </div>
     </div>
 
-    <!-- Particle Canvas -->
-    <canvas id="particle-canvas" aria-hidden="true"></canvas>
-
     <!-- Bottom Navigation -->
     <nav class="sticky-nav">
         <div class="nav-items">
@@ -90,6 +80,6 @@
         </div>
     </nav>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>
