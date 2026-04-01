@@ -1,165 +1,75 @@
-/* ============================================
-   Cherry Street Labs — Styles
-   ============================================ */
+/* Cherry Street Labs */
 
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-    --vh: 1vh;
-    --glass-opacity: 0.10;
-    --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.2);
-}
+:root { --vh: 1vh; }
 
 body {
-    background: #05050a;
+    background: #0c0c0c;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
+    color: #fff;
 }
 
-/* ============================================
-   Three.js Traffic Canvas
-   ============================================ */
+/* ── Background ─────────────────────────────────────────────────── */
 
-#traffic-canvas {
+main {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 45%, rgba(255, 255, 255, 0.03) 0%, transparent 70%),
+        #0c0c0c;
+}
+
+#grain {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 1.8s ease;
-}
-
-#traffic-canvas.visible {
-    opacity: 1;
-}
-
-/* ============================================
-   Desktop Header & Brand Panel
-   ============================================ */
-
-header {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#bg-overlay {
-    position: absolute;
-    inset: 0;
     z-index: 1;
     pointer-events: none;
+    opacity: 0.35;
 }
+
+/* ── Brand ──────────────────────────────────────────────────────── */
 
 #brand-panel {
     position: relative;
     z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-align: center;
-    padding: 3rem 4rem;
-    background: rgba(255, 255, 255, var(--glass-opacity));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 6px;
-    box-shadow:
-        0 8px 40px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    animation: panelFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-    transform-style: preserve-3d;
-    will-change: transform;
-}
-
-@keyframes panelFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.96) translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.brand-inner {
-    display: inline-block;
+    animation: fadeIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .brand-text {
     font-family: 'Instrument Serif', Georgia, serif;
     font-weight: 400;
-    font-size: clamp(2.8rem, 6vw, 5.5rem);
-    line-height: 1.05;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-    text-shadow: var(--text-shadow);
-    font-variant-ligatures: common-ligatures;
+    font-size: clamp(2.6rem, 7vw, 6rem);
+    line-height: 1.02;
+    color: #fff;
+    letter-spacing: -0.02em;
 }
 
-.brand-text-thin {
-    font-weight: 300;
-    opacity: 0.88;
-}
-
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    #brand-panel {
-        background: rgba(20, 20, 30, 0.85);
-    }
-}
-
-/* ============================================
-   Mobile View
-   ============================================ */
-
-.mobile-view {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    overflow: hidden;
-}
-
-.mobile-bg {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse at 30% 40%, rgba(255, 200, 80, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 60%, rgba(100, 140, 255, 0.04) 0%, transparent 50%),
-        linear-gradient(180deg, #08081a 0%, #0a0a14 100%);
-    z-index: 0;
-}
-
-.mobile-title {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-size: clamp(2rem, 10vw, 4.5rem);
+.brand-thin {
+    display: block;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.88);
-    text-align: center;
-    margin: 0;
-    padding: 2rem;
-    z-index: 2;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    font-style: italic;
+    opacity: 0.5;
+    letter-spacing: 0.08em;
+    font-size: 0.52em;
+    margin-top: 0.15em;
 }
 
-/* ============================================
-   Navigation
-   ============================================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Navigation ─────────────────────────────────────────────────── */
 
 .sticky-nav {
     position: fixed;
@@ -173,29 +83,28 @@ header {
 .nav-items {
     display: flex;
     justify-content: center;
-    gap: 3.5rem;
-    align-items: center;
+    gap: 3rem;
     max-width: 600px;
     margin: 0 auto;
 }
 
 .nav-item {
-    color: rgba(255, 255, 255, 0.42);
+    color: rgba(255, 255, 255, 0.25);
     text-decoration: none;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-size: 1.2rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     padding: 0.5rem 1rem;
-    transition: color 0.25s ease;
-    letter-spacing: 0.01em;
+    transition: color 0.3s ease;
 }
 
 .nav-item:hover {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* ============================================
-   Who We Are Overlay
-   ============================================ */
+/* ── Overlay ────────────────────────────────────────────────────── */
 
 .overlay {
     position: fixed;
@@ -211,179 +120,124 @@ header {
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
-    transition:
-        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        backdrop-filter 0.45s ease,
-        background 0.45s ease;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .overlay.active {
     visibility: visible;
     pointer-events: auto;
     opacity: 1;
-    background: rgba(0, 0, 0, 0.52);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .overlay-content {
     position: relative;
-    background: #ffffff;
+    background: #fff;
     padding: 3rem;
     border-radius: 6px;
-    max-width: 900px;
+    max-width: 880px;
     width: 100%;
     display: flex;
     gap: 3rem;
-    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 12px 60px rgba(0, 0, 0, 0.4);
     opacity: 0;
-    transform: scale(0.97) translateY(16px);
-    transition:
-        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
-        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+    transform: translateY(16px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
     max-height: calc(100vh - 4rem);
     overflow: hidden;
 }
 
 .overlay.active .overlay-content {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
 }
 
-.overlay-image {
-    flex: 1;
-    min-width: 0;
-}
-
-.overlay-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 6px;
-    display: block;
-}
+.overlay-image { flex: 1; min-width: 0; }
+.overlay-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; display: block; }
 
 .overlay-text {
     flex: 1;
     min-width: 0;
     overflow-y: auto;
-    padding-right: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.1rem;
 }
 
 .overlay-text h3 {
     font-family: 'Instrument Serif', Georgia, serif;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
     font-weight: 400;
-    color: #0a0a0a;
+    color: #111;
     line-height: 1.2;
-    margin-bottom: 0.25rem;
 }
 
 .overlay-text p {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: rgba(0, 0, 0, 0.58);
+    font-size: 0.88rem;
+    line-height: 1.72;
+    color: rgba(0, 0, 0, 0.52);
 }
 
-.highlight {
-    color: #A0001B;
-    font-weight: 500;
-}
+.highlight { color: #A0001B; font-weight: 500; }
 
 .close-button {
     position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    background: none;
-    border: none;
-    font-size: 1.6rem;
-    line-height: 1;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.28);
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    font-size: 1.5rem; cursor: pointer;
+    color: rgba(0, 0, 0, 0.2);
     padding: 0.4rem 0.6rem;
     border-radius: 4px;
-    transition: color 0.2s ease, background 0.2s ease;
+    transition: color 0.2s ease;
 }
-
-.close-button:hover {
-    color: rgba(0, 0, 0, 0.7);
-    background: rgba(0, 0, 0, 0.06);
-}
+.close-button:hover { color: rgba(0, 0, 0, 0.6); }
 
 .overlay-text::-webkit-scrollbar { width: 4px; }
 .overlay-text::-webkit-scrollbar-track { background: transparent; }
-.overlay-text::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.18); border-radius: 2px; }
+.overlay-text::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 2px; }
 
-/* ============================================
-   Responsive — Mobile
-   ============================================ */
+/* ── Mobile ─────────────────────────────────────────────────────── */
 
 @media screen and (max-width: 768px) {
-    header {
-        display: none;
-    }
-
-    #traffic-canvas {
-        display: none;
-    }
-
-    .mobile-view {
-        display: block;
-    }
-
     .sticky-nav { padding: 2rem 0; }
     .nav-items { gap: 1.5rem; }
-    .nav-item { font-size: 1rem; padding: 0.4rem 0.8rem; }
+    .nav-item { font-size: 0.75rem; }
 
     .overlay { align-items: flex-start; padding: 0; }
-
     .overlay-content {
         flex-direction: column;
-        padding: 1.5rem;
-        margin: 0;
-        gap: 1.5rem;
+        padding: 1.5rem; margin: 0; gap: 1.5rem;
         border-radius: 0;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        height: -webkit-fill-available;
+        height: 100vh; height: calc(var(--vh, 1vh) * 100);
         max-height: none;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
         padding-bottom: max(calc(env(safe-area-inset-bottom) + 5rem), 6rem);
         transform: none !important;
     }
-
     .overlay.active .overlay-content { transform: none !important; }
-
-    .overlay-image { flex: none; width: 100%; height: 240px; flex-shrink: 0; }
+    .overlay-image { flex: none; width: 100%; height: 240px; }
     .overlay-image img { width: 100%; height: 100%; object-fit: cover; }
-
-    .overlay-text { overflow-y: visible; padding-right: 0; gap: 1rem; }
-    .overlay-text h3 { font-size: 1.5rem; }
-    .overlay-text p { font-size: 0.88rem; line-height: 1.65; }
-
+    .overlay-text { overflow-y: visible; gap: 1rem; }
+    .overlay-text h3 { font-size: 1.4rem; }
+    .overlay-text p { font-size: 0.85rem; }
     .close-button {
         position: fixed;
         top: max(env(safe-area-inset-top), 1rem);
         right: max(env(safe-area-inset-right), 1rem);
-        background: rgba(0, 0, 0, 0.06);
-        border-radius: 50%;
+        background: rgba(0,0,0,0.04); border-radius: 50%;
         width: 2.5rem; height: 2.5rem;
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.4rem;
     }
 }
 
 @media screen and (min-width: 1400px) {
-    #brand-panel { padding: 4rem 5rem; }
+    .brand-text { font-size: 6.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     #brand-panel { animation: none; }
     .overlay, .overlay-content { transition: none; }
-    #traffic-canvas { display: none; }
+    #grain { display: none; }
 }

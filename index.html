@@ -29,36 +29,15 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-
-    <!-- Import Map for Three.js ES Modules -->
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
-            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
-        }
-    }
-    </script>
 </head>
 <body>
-    <header>
-        <!-- Three.js NYC Traffic Scene (replaces video) -->
-        <canvas id="traffic-canvas"></canvas>
-        <div id="bg-overlay"></div>
+    <main>
+        <canvas id="grain" aria-hidden="true"></canvas>
 
-        <!-- Frosted Glass Brand Panel -->
-        <div id="brand-panel" aria-label="Cherry Street Labs">
-            <div class="brand-inner">
-                <h1 class="brand-text">Cherry Street<br><span class="brand-text-thin">Labs</span></h1>
-            </div>
+        <div id="brand-panel">
+            <h1 class="brand-text">Cherry Street<br><span class="brand-thin">Labs</span></h1>
         </div>
-    </header>
-
-    <!-- Mobile View — static poster with gradient fallback -->
-    <div class="mobile-view">
-        <div class="mobile-bg"></div>
-        <h2 class="mobile-title">Cherry Street Labs</h2>
-    </div>
+    </main>
 
     <!-- Who We Are Overlay -->
     <div id="whoWeAreOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
@@ -68,21 +47,15 @@
             </div>
             <div class="overlay-text">
                 <h3 id="overlay-title">Over one hundred and twenty years ago&hellip;</h3>
-                <p>
-                    Thousands of Italian immigrants arrived in New York City, leaving behind a cherished homeland to build a better future. With determination, they forged new lives for their families and shaped the city itself.
-                </p>
-                <p>
-                    From the first Italian enclave on <span class="highlight">Cherry Street</span> in Manhattan's Lower East Side, they built the city's bridges, subways, churches, and landmarks that endure as symbols of their legacy.
-                </p>
-                <p>
-                    We honor this history and embrace their generational spirit of building and creating. Inspired by their drive, we channel that same passion into crafting software for each other and the world.
-                </p>
+                <p>Thousands of Italian immigrants arrived in New York City, leaving behind a cherished homeland to build a better future. With determination, they forged new lives for their families and shaped the city itself.</p>
+                <p>From the first Italian enclave on <span class="highlight">Cherry Street</span> in Manhattan's Lower East Side, they built the city's bridges, subways, churches, and landmarks that endure as symbols of their legacy.</p>
+                <p>We honor this history and embrace their generational spirit of building and creating. Inspired by their drive, we channel that same passion into crafting software for each other and the world.</p>
             </div>
             <button id="closeOverlay" class="close-button" aria-label="Close">&times;</button>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Navigation -->
     <nav class="sticky-nav">
         <div class="nav-items">
             <a href="#" class="nav-item" id="whoWeAreBtn">Who We Are</a>
@@ -90,6 +63,6 @@
         </div>
     </nav>
 
-    <script src="js/main.js" type="module"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
