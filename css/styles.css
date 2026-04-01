@@ -23,6 +23,25 @@ body {
 }
 
 /* ============================================
+   Particle Canvas
+   ============================================ */
+
+#particle-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+#particle-canvas.visible {
+    opacity: 1;
+}
+
+/* ============================================
    Desktop Header & Brand Panel
    ============================================ */
 
@@ -80,6 +99,9 @@ header {
         0 8px 40px rgba(0, 0, 0, 0.18),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     animation: panelFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    /* 3D tilt — set dynamically via JS */
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 @keyframes panelFadeIn {
@@ -194,7 +216,7 @@ header {
 }
 
 .nav-item {
-    color: rgba(0, 0, 0, 0.38);
+    color: rgba(255, 255, 255, 0.48);
     text-decoration: none;
     font-family: 'Instrument Serif', Georgia, serif;
     font-size: 1.2rem;
@@ -204,7 +226,7 @@ header {
 }
 
 .nav-item:hover {
-    color: rgba(0, 0, 0, 0.78);
+    color: rgba(255, 255, 255, 0.92);
     opacity: 1;
 }
 
