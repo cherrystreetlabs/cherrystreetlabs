@@ -1,15 +1,31 @@
-/* Reset and Base Styles */
-* {
+/* ============================================
+   Cherry Street Labs — Optimized Styles
+   ============================================ */
+
+/* Reset and Base */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background: white;
+:root {
+    --vh: 1vh;
+    --blur-amount: 18px;
+    --glass-opacity: 0.12;
+    --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* Desktop View */
+body {
+    background: #0a0a0a;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   Desktop Header & Brand Panel
+   ============================================ */
+
 .desktop-view {
     position: relative;
     width: 100%;
@@ -17,16 +33,19 @@ body {
     overflow: hidden;
 }
 
-.mobile-view {
-    display: none;
+header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Background Video */
 #background-layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 0;
 }
 
@@ -34,139 +53,211 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: blur(16px);
+    filter: blur(var(--blur-amount)) brightness(0.7);
 }
 
 #bg-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    inset: 0;
+    background: rgba(255, 255, 255, 0.08);
 }
 
-.text-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50vw;
-    height: auto;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: 1;
-    mask: url(#mask) no-repeat center;
-    -webkit-mask: url(#mask) no-repeat center;
+/* Frosted Glass Brand Panel — replaces GIF-mask technique */
+#brand-panel {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 4rem;
+    background: rgba(255, 255, 255, var(--glass-opacity));
+    backdrop-filter: blur(calc(var(--blur-amount) * 0.75));
+    -webkit-backdrop-filter: blur(calc(var(--blur-amount) * 0.75));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: panelFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Mobile View */
+@keyframes panelFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.brand-inner {
+    display: inline-block;
+}
+
+/* Brand Text — sharp SVG-quality via text-rendering */
+.brand-text {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    text-shadow: var(--text-shadow);
+    font-variant-ligatures: common-ligatures;
+}
+
+.brand-text-thin {
+    font-weight: 300;
+    opacity: 0.88;
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    #brand-panel {
+        background: rgba(255, 255, 255, 0.72);
+    }
+}
+
+/* ============================================
+   Mobile View
+   ============================================ */
+
 .mobile-view {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    inset: 0;
+    z-index: 100;
     overflow: hidden;
 }
 
-.mobile-video {
+.mobile-view video {
     position: absolute;
+    inset: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     object-fit: cover;
+    min-height: -webkit-fill-available;
+}
+
+.mobile-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.58);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1;
 }
 
 .mobile-title {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Instrument Serif', serif;
-    font-size: 2.5rem;
-    color: white;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2rem, 10vw, 4.5rem);
+    font-weight: 400;
+    color: #0a0a0a;
     text-align: center;
+    margin: 0;
+    padding: 2rem;
     z-index: 2;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    mix-blend-mode: overlay;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
-/* Navigation Menu */
+/* ============================================
+   Navigation
+   ============================================ */
+
 .sticky-nav {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 3rem 0;
+    padding: 2.5rem 0;
 }
 
 .nav-items {
     display: flex;
     justify-content: center;
-    gap: 4rem;
+    gap: 3.5rem;
     align-items: center;
     max-width: 600px;
     margin: 0 auto;
 }
 
 .nav-item {
-    color: rgba(0, 0, 0, 0.32);
+    color: rgba(0, 0, 0, 0.38);
     text-decoration: none;
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.3rem;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 1.2rem;
     padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
+    transition: color 0.25s ease, opacity 0.25s ease;
+    letter-spacing: 0.01em;
 }
 
 .nav-item:hover {
-    color: rgba(0, 0, 0, 0.80);
+    color: rgba(0, 0, 0, 0.78);
+    opacity: 1;
 }
 
-/* Overlay Styles */
+/* ============================================
+   Who We Are Overlay
+   ============================================ */
+
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
     background: rgba(0, 0, 0, 0);
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
-    z-index: 2000;
-    display: flex;
-    align-items: center;  /* Center vertically */
-    justify-content: center;  /* Center horizontally */
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        backdrop-filter 0.45s ease,
+        background 0.45s ease;
 }
 
 .overlay.active {
     visibility: visible;
     pointer-events: auto;
     opacity: 1;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.52);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .overlay-content {
     position: relative;
-    background: white;
+    background: #ffffff;
     padding: 3rem;
-    border-radius: 4px;
+    border-radius: 6px;
     max-width: 900px;
-    width: 90%;
-    margin: 2rem;
+    width: 100%;
     display: flex;
-    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
     gap: 3rem;
+    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.22);
     opacity: 0;
-    transform: scale(0.98) translateY(20px);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    max-height: calc(100vh - 4rem);  /* Account for margin */
-    overflow: hidden;  /* Contains the children's overflow */
+    transform: scale(0.97) translateY(16px);
+    transition:
+        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+    max-height: calc(100vh - 4rem);
+    overflow: hidden;
 }
 
 .overlay.active .overlay-content {
@@ -176,198 +267,105 @@ body {
 
 .overlay-image {
     flex: 1;
+    min-width: 0;
 }
 
 .overlay-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 6px;
+    display: block;
 }
 
 .overlay-text {
     flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    padding-right: 0.5rem;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;  /* Make text area scrollable */
-    padding-right: 1rem;  /* Space for scrollbar */
+    gap: 1.2rem;
 }
 
 .overlay-text h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 2.4rem;
-    margin-bottom: 1.5rem;
-    color: black;
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
     font-weight: 400;
+    color: #0a0a0a;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
 }
 
 .overlay-text p {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.9rem;
-    line-height: 1.6;
-    color: rgba(0, 0, 0, 0.40);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.58);
+}
+
+.highlight {
+    color: #A0001B;
+    font-weight: 500;
 }
 
 .close-button {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.25rem;
+    right: 1.25rem;
     background: none;
     border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.16);
-    padding: 0.5rem;
+    font-size: 1.6rem;
     line-height: 1;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.28);
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    transition: color 0.2s ease, background 0.2s ease;
 }
 
 .close-button:hover {
-    opacity: 0.7;
+    color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.06);
 }
 
-/* Responsive Design */
-:root {
-    --vh: 1vh;
+/* ============================================
+   Scrollbar Styling (Overlay)
+   ============================================ */
+
+.overlay-text::-webkit-scrollbar {
+    width: 4px;
 }
+
+.overlay-text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overlay-text::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 2px;
+}
+
+/* ============================================
+   Responsive — Tablet & Mobile
+   ============================================ */
 
 @media screen and (max-width: 768px) {
     header {
         display: none;
     }
-    
+
     .mobile-view {
         display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        min-height: -webkit-fill-available;
-        overflow: hidden;
-        z-index: 1000;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
     }
 
-    .mobile-view video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        min-height: -webkit-fill-available;
-        object-fit: cover;
-    }
-
-    .mobile-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.64);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        z-index: 1;
-    }
-
-    .overlay {
-        align-items: flex-start;
-    }
-
-    .overlay-content {
-        flex-direction: column;
-        padding: 2rem;
-        margin: 1rem;
-        gap: .01rem;
-        height: auto;
-        max-height: calc(100vh - 2rem);
-        overflow-y: auto;
-    }
-
-    .overlay-image {
-        flex: none;  /* Remove flex growth */
-        width: 100%;
-        height: 300px;
-    }
-
-    .overlay-text {
-        overflow-y: visible;  /* Let parent handle scrolling */
-        padding-right: 0;  /* Remove scrollbar space */
-    }
-    .overlay-image img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .mobile-view h2 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        min-height: -webkit-fill-available;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Instrument Serif', serif;
-        font-size: 8vw;
-        font-weight: 400;
-        color: black;
-        mix-blend-mode: overlay;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        z-index: 2;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-
-    /* Fallback styles for browsers that don't support backdrop-filter */
-    @supports not ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
-        .mobile-overlay {
-            background: rgba(255, 255, 255, 0.9);
-        }
-    }
-
-    #bg-video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: blur(8px);
-    }
-
-    #bg-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.7);
-    }
-
-    .nav-items {
-        gap: 1rem;
-    }
-
-    .nav-item {
-        font-size: 1rem;
-        padding: 0.4rem 0.8rem;
-    }
-}
-
-@media (max-width: 768px) {
     .sticky-nav {
         padding: 2rem 0;
         z-index: 1000;
     }
-    
+
     .nav-items {
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .nav-item {
@@ -375,78 +373,121 @@ body {
         padding: 0.4rem 0.8rem;
     }
 
+    /* Overlay — mobile layout */
     .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    .overlay-content {
+        flex-direction: column;
+        padding: 1.5rem;
+        margin: 0;
+        gap: 1.5rem;
+        border-radius: 0;
         height: 100vh;
         height: calc(var(--vh, 1vh) * 100);
-        background: rgba(255, 255, 255, 0.98);
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-        z-index: 2000;
-        overflow: hidden;
-    }
-    
-    .overlay-content {
-        position: relative;
-        width: 100%;
-        height: 100%;
+        height: -webkit-fill-available;
+        max-height: none;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        padding: 20px;
-        padding-top: max(env(safe-area-inset-top), 20px);
-        padding-right: max(env(safe-area-inset-right), 20px);
-        padding-bottom: max(calc(env(safe-area-inset-bottom) + 80px), 100px);
-        padding-left: max(env(safe-area-inset-left), 20px);
+        padding-bottom: max(calc(env(safe-area-inset-bottom) + 5rem), 6rem);
+        transform: none !important;
+    }
+
+    .overlay.active .overlay-content {
+        transform: none !important;
     }
 
     .overlay-image {
+        flex: none;
         width: 100%;
-        height: auto;
-        margin-bottom: 2rem;
+        height: 240px;
+        flex-shrink: 0;
     }
 
     .overlay-image img {
         width: 100%;
-        height: auto;
-        display: block;
+        height: 100%;
+        object-fit: cover;
     }
 
     .overlay-text {
-        margin-bottom: env(safe-area-inset-bottom);
+        overflow-y: visible;
+        padding-right: 0;
+        gap: 1rem;
     }
-    
-    .overlay.active {
-        visibility: visible;
-        opacity: 1;
+
+    .overlay-text h3 {
+        font-size: 1.5rem;
+    }
+
+    .overlay-text p {
+        font-size: 0.88rem;
+        line-height: 1.65;
     }
 
     .close-button {
         position: fixed;
-        top: max(env(safe-area-inset-top), 20px);
-        right: max(env(safe-area-inset-right), 20px);
-        z-index: 2001;
+        top: max(env(safe-area-inset-top), 1rem);
+        right: max(env(safe-area-inset-right), 1rem);
+        background: rgba(0, 0, 0, 0.06);
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
     }
-    
-    @supports (-webkit-touch-callout: none) {
+
+    /* Fallback for mobile without backdrop-filter */
+    @supports not ((backdrop-filter: blur(6px)) or (-webkit-backdrop-filter: blur(6px))) {
+        .mobile-overlay {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
         .overlay {
+            background: rgba(0, 0, 0, 0.92);
+        }
+    }
+
+    /* Ensure viewport height is correct on iOS Safari */
+    @supports (-webkit-touch-callout: none) {
+        .mobile-view video,
+        .mobile-overlay,
+        .mobile-title {
+            height: 100vh;
             height: -webkit-fill-available;
         }
     }
 }
 
-@media (min-width: 769px) {
-    .mobile-view {
-        display: none;
+/* ============================================
+   Large Desktop — Cap the brand panel
+   ============================================ */
+
+@media screen and (min-width: 1400px) {
+    #brand-panel {
+        padding: 4rem 5rem;
     }
-    
-    .desktop-view {
-        display: block;
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    #brand-panel {
+        animation: none;
+    }
+
+    #bg-video {
+        animation: none;
+    }
+
+    .overlay,
+    .overlay-content {
+        transition: none;
     }
 }

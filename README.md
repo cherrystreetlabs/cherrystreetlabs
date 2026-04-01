@@ -1,16 +1,38 @@
 # Cherry Street Labs
 
-Modern website for Cherry Street Labs featuring a video background with SVG text masking effect.
+LLC website for Cherry Street Labs — a software studio inspired by the generational spirit of Italian immigrants who built New York City.
 
-## Features
+## Site
 
-- Video background with blur effect
-- SVG text masking for dynamic text fill
-- Responsive design for all devices
-- Social media sharing optimization
-- Cross-browser compatibility, including Safari on iOS
+- **Live:** https://cherrystreetlabs.com
+- **Video background** with CSS frosted glass text panel
+- **Responsive** — mobile-optimized with iOS Safari viewport handling
+- **SEO-optimized** — meta descriptions, Open Graph, Twitter Card, sitemap, robots.txt
 
-## Directory Structure
+## Stack
+
+Plain HTML/CSS/JS — no build step required, deploys directly to GitHub Pages.
+
+## Development
+
+```bash
+# Clone and serve locally
+git clone https://github.com/mikebatts/cherrystreetlabs.git
+cd cherrystreetlabs
+python3 -m http.server 8000
+# Open http://localhost:8000
+```
+
+## Assets
+
+| File | Size | Purpose |
+|------|------|---------|
+| `assets/videos/background.webm` | 3.8 MB | Looping background video (VP9) |
+| `assets/images/poster.jpg` | 362 KB | Video poster / fallback frame |
+| `assets/images/cherryimg.jpg` | 303 KB | OG image (social sharing) |
+| `assets/images/whoweare.jpg` | 390 KB | "Who We Are" overlay photo |
+
+## Architecture
 
 ```
 cherrystreetlabs/
@@ -19,7 +41,14 @@ cherrystreetlabs/
 │   └── styles.css
 ├── js/
 │   └── main.js
-└── assets/
-    └── images/
-        └── cherrystreet.gif
+├── assets/
+│   ├── images/
+│   │   ├── cherryimg.jpg    # OG / social card
+│   │   ├── poster.jpg       # Video poster frame
+│   │   └── whoweare.jpg     # About overlay photo
+│   └── videos/
+│       └── background.webm  # Background video (WebM/VP9)
+├── favicon.svg
+├── sitemap.xml
+└── robots.txt
 ```
