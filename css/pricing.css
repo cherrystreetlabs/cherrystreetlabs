@@ -487,6 +487,73 @@ body.pricing-page {
 .pricing-footer a { font-size: 0.78rem; color: #6B6560; text-decoration: none; transition: color 0.3s ease; }
 .pricing-footer a:hover { color: #C41E3A; }
 
+/* ===== MATRIX MOBILE CARDS ===== */
+.matrix-section { }
+
+.matrix-cards-mobile {
+  display: none;
+}
+
+.matrix-tier-card {
+  background: #FFF;
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.matrix-tier-card-header {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.2rem;
+  color: #1A1714;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.06);
+}
+
+.matrix-price-accent { color: #C41E3A !important; font-weight: 700; font-size: 1rem !important; }
+
+.matrix-tier-card-body { padding: 0 1.5rem 1.2rem; }
+
+.matrix-criterion {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.04);
+}
+
+.matrix-criterion:last-child { border-bottom: none; }
+
+.criterion-label {
+  font-size: 0.78rem;
+  color: #9A9390;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.criterion-value {
+  font-size: 0.88rem;
+  color: #1A1714;
+  text-align: right;
+  flex: 1;
+  padding-left: 1rem;
+}
+
+.popular-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #C41E3A;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 /* ===== MOBILE ===== */
 @media screen and (max-width: 768px) {
   body.pricing-page { padding: 0; }
@@ -498,7 +565,8 @@ body.pricing-page {
   .tier-grid { grid-template-columns: 1fr; gap: 1rem; }
   .addons-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
   .get-started-grid { grid-template-columns: 1fr; }
-  .matrix-table th, .matrix-table td { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
+  .matrix-table-wrapper { display: none; }
+  .matrix-cards-mobile { display: flex; flex-direction: column; gap: 1rem; }
 }
 
 /* ===== ACCESSIBILITY ===== */

@@ -129,49 +129,87 @@
   <section class="page-section pricing-matrix" id="matrix">
     <span class="section-label">Comparison</span>
     <h2 class="section-title">Quickly see which tier fits your project</h2>
-    <div class="matrix-table-wrapper">
-      <table class="matrix-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Starter</th>
-            <th>Growth</th>
-            <th>Enterprise</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="matrix-criteria">Core Features</td>
-            <td>1&ndash;4<br><span class="matrix-note">(one main flow)</span></td>
-            <td>5&ndash;8<br><span class="matrix-note">(multiple flows)</span></td>
-            <td>9+ or complex<br><span class="matrix-note">workflows</span></td>
-          </tr>
-          <tr>
-            <td class="matrix-criteria">Platforms</td>
-            <td>1 (web or mobile)</td>
-            <td>1&ndash;2</td>
-            <td>2+ or native</td>
-          </tr>
-          <tr>
-            <td class="matrix-criteria">Integrations</td>
-            <td>0&ndash;1 basic<br><span class="matrix-note">(auth, DB, Stripe)</span></td>
-            <td>2&ndash;3<br><span class="matrix-note">(payments, email, AI)</span></td>
-            <td>4+ custom<br><span class="matrix-note">(APIs, compliance)</span></td>
-          </tr>
-          <tr>
-            <td class="matrix-criteria">AI / Data</td>
-            <td>Static or simple CRUD</td>
-            <td>Basic AI<br><span class="matrix-note">(prompts, simple models)</span></td>
-            <td>Advanced AI/ML<br><span class="matrix-note">(real-time, custom)</span></td>
-          </tr>
-          <tr>
-            <td class="matrix-criteria">Design</td>
-            <td>Clean template +<br>our design system</td>
-            <td>Full custom UI/UX<br>+ animations</td>
-            <td>Brand system +<br>advanced prototyping</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="matrix-section">
+      <div class="matrix-table-wrapper">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Starter</th>
+              <th>Growth</th>
+              <th>Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="matrix-criteria">Core Features</td>
+              <td>1&ndash;4<br><span class="matrix-note">(one main flow)</span></td>
+              <td>5&ndash;8<br><span class="matrix-note">(multiple flows)</span></td>
+              <td>9+ or complex<br><span class="matrix-note">workflows</span></td>
+            </tr>
+            <tr>
+              <td class="matrix-criteria">Platforms</td>
+              <td>1 (web or mobile)</td>
+              <td>1&ndash;2</td>
+              <td>2+ or native</td>
+            </tr>
+            <tr>
+              <td class="matrix-criteria">Integrations</td>
+              <td>0&ndash;1 basic<br><span class="matrix-note">(auth, DB, Stripe)</span></td>
+              <td>2&ndash;3<br><span class="matrix-note">(payments, email, AI)</span></td>
+              <td>4+ custom<br><span class="matrix-note">(APIs, compliance)</span></td>
+            </tr>
+            <tr>
+              <td class="matrix-criteria">AI / Data</td>
+              <td>Static or simple CRUD</td>
+              <td>Basic AI<br><span class="matrix-note">(prompts, simple models)</span></td>
+              <td>Advanced AI/ML<br><span class="matrix-note">(real-time, custom)</span></td>
+            </tr>
+            <tr>
+              <td class="matrix-criteria">Design</td>
+              <td>Clean template +<br>our design system</td>
+              <td>Full custom UI/UX<br>+ animations</td>
+              <td>Brand system +<br>advanced prototyping</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="matrix-cards-mobile">
+        <div class="matrix-tier-card">
+          <div class="matrix-tier-card-header">Starter</div>
+          <div class="matrix-tier-card-body">
+            <div class="matrix-criterion"><span class="criterion-label">Features</span><span class="criterion-value">1–4 (one main flow)</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Platforms</span><span class="criterion-value">1 (web or mobile)</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Integrations</span><span class="criterion-value">0–1 basic</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">AI / Data</span><span class="criterion-value">Static or simple CRUD</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Design</span><span class="criterion-value">Clean template + our system</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Price</span><span class="criterion-value matrix-price-accent">$8,000</span></div>
+          </div>
+        </div>
+        <div class="matrix-tier-card matrix-tier-popular">
+          <div class="popular-tag">Most Popular</div>
+          <div class="matrix-tier-card-header">Growth</div>
+          <div class="matrix-tier-card-body">
+            <div class="matrix-criterion"><span class="criterion-label">Features</span><span class="criterion-value">5–8 (multiple flows)</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Platforms</span><span class="criterion-value">1–2</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Integrations</span><span class="criterion-value">2–3 (payments, email, AI)</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">AI / Data</span><span class="criterion-value">Basic AI (prompts, models)</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Design</span><span class="criterion-value">Full custom UI/UX + animations</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Price</span><span class="criterion-value matrix-price-accent">$16,000</span></div>
+          </div>
+        </div>
+        <div class="matrix-tier-card">
+          <div class="matrix-tier-card-header">Enterprise</div>
+          <div class="matrix-tier-card-body">
+            <div class="matrix-criterion"><span class="criterion-label">Features</span><span class="criterion-value">9+ or complex workflows</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Platforms</span><span class="criterion-value">2+ or native</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Integrations</span><span class="criterion-value">4+ (custom APIs, compliance)</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">AI / Data</span><span class="criterion-value">Advanced AI/ML, real-time</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Design</span><span class="criterion-value">Brand system + prototyping</span></div>
+            <div class="matrix-criterion"><span class="criterion-label">Price</span><span class="criterion-value matrix-price-accent">$28,000+</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
