@@ -3,21 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Cherry Street Labs — Software Built With Purpose</title>
-    <meta name="description" content="Cherry Street Labs is a software studio inspired by the generational spirit of Italian immigrants who built New York City. We craft software for each other and the world.">
+    <meta name="description" content="Cherry Street Labs is a product studio building launch-ready apps starting at $8,000. One founding product engineer + designer + AI acceleration.">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Cherry Street Labs">
-    <meta property="og:description" content="Software built with the same drive that built New York City.">
+    <meta property="og:description" content="We build your app starting at $8,000. Fixed price. Zero surprises.">
     <meta property="og:image" content="assets/images/cherryimg.jpg">
     <meta property="og:type" content="website">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cherry Street Labs">
-    <meta name="twitter:description" content="Software built with the same drive that built New York City.">
-    <meta name="twitter:image" content="assets/images/cherryimg.jpg">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -25,51 +18,97 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <main>
-        <canvas id="grain" aria-hidden="true"></canvas>
-
-        <div id="brand-panel">
-            <h1 class="brand-text">Cherry Street<br><span class="brand-thin">Labs</span></h1>
-            <div class="brand-cta" id="brandCta">
-              <a href="pricing.html" class="cta-link">
-                <span class="cta-label">We build your app</span>
-                <span class="cta-price">starting at $8,000</span>
-              </a>
+        <!-- SECTION 1: Hero -->
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="brand">
+                    <h1 class="brand-logo">Cherry Street<span class="brand-labs">Labs</span></h1>
+                </div>
+                <p class="hero-tagline">We build your app<br>starting at <span class="tagline-price">$8,000</span></p>
+                <p class="hero-sub">A focused product studio. One founding product engineer + designer + AI acceleration. Launch-ready MVPs in weeks.</p>
+                <div class="hero-cta-group">
+                    <a href="pricing.html" class="btn-primary">See Pricing</a>
+                    <a href="#about" class="btn-text">What we do &rarr;</a>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- SECTION 2: What We Do -->
+        <section class="section about" id="about">
+            <div class="section-inner">
+                <span class="section-label">What we do</span>
+                <h2 class="section-headline">Launch-ready software,<br>not just code.</h2>
+                <p class="section-body">We take your idea from concept to deployed product. Fixed price, clear scope, zero surprises. Every project starts with a signed scope document and ends with you owning everything — the code, the design, the infrastructure.</p>
+            </div>
+            <div class="section-inner">
+                <div class="values-grid">
+                    <div class="value-card">
+                        <span class="value-icon">&#9312;</span>
+                        <h3 class="value-title">Fixed Price</h3>
+                        <p class="value-desc">No hourly billing, no surprises. You know the cost before we start.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">&#9313;</span>
+                        <h3 class="value-title">You Own Everything</h3>
+                        <p class="value-desc">Full IP transfer on delivery. The code is yours, forever.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">&#9314;</span>
+                        <h3 class="value-title">AI-Accelerated</h3>
+                        <p class="value-desc">Founding engineer + designer + AI tools. Weeks, not months.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Tiers Preview -->
+        <section class="section tiers-preview">
+            <div class="section-inner">
+                <span class="section-label">Pricing</span>
+                <h2 class="section-headline">Three tiers. One goal: ship.</h2>
+                <div class="tiers-mini">
+                    <div class="tier-mini">
+                        <div class="tier-mini-name">Starter</div>
+                        <div class="tier-mini-price">$8,000</div>
+                        <p class="tier-mini-desc">Idea validation or simple utility tool &middot; 3&ndash;4 weeks</p>
+                    </div>
+                    <div class="tier-mini">
+                        <div class="tier-mini-name tier-popular-label">Growth</div>
+                        <div class="tier-mini-price">$16,000</div>
+                        <p class="tier-mini-desc">Market-ready MVP for early users &middot; 5&ndash;8 weeks</p>
+                    </div>
+                    <div class="tier-mini">
+                        <div class="tier-mini-name">Enterprise</div>
+                        <div class="tier-mini-price">$28,000<span class="tier-plus">+</span></div>
+                        <p class="tier-mini-desc">Complex products or scalable SaaS &middot; 8&ndash;12+ weeks</p>
+                    </div>
+                </div>
+                <a href="pricing.html" class="btn-primary full-width-mobile">See Full Pricing &rarr;</a>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Footer -->
+        <section class="section footer-section">
+            <div class="section-inner">
+                <div class="footer-cta">
+                    <span class="section-label">Get started</span>
+                    <h2 class="section-headline">Ready to build?</h2>
+                    <p class="footer-sub">Tell us what you're building. We'll respond within 24 hours.</p>
+                    <a href="pricing.html#get-started" class="btn-primary">Start Your Project</a>
+                </div>
+                <footer class="footer">
+                    <p class="footer-copy">&copy; 2026 Cherry Street Labs. All rights reserved.</p>
+                    <p class="footer-heritage">Inspired by the drive of Italian immigrants who built New York City.</p>
+                </footer>
+            </div>
+        </section>
     </main>
-
-    <!-- Who We Are Overlay -->
-    <div id="whoWeAreOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
-        <div class="overlay-content">
-            <div class="overlay-image">
-                <img src="assets/images/whoweare.jpg" alt="Cherry Street Labs team">
-            </div>
-            <div class="overlay-text">
-                <h3 id="overlay-title">Over one hundred and twenty years ago&hellip;</h3>
-                <p>Thousands of Italian immigrants arrived in New York City, leaving behind a cherished homeland to build a better future. With determination, they forged new lives for their families and shaped the city itself.</p>
-                <p>From the first Italian enclave on <span class="highlight">Cherry Street</span> in Manhattan's Lower East Side, they built the city's bridges, subways, churches, and landmarks that endure as symbols of their legacy.</p>
-                <p>We honor this history and embrace their generational spirit of building and creating. Inspired by their drive, we channel that same passion into crafting software for each other and the world.</p>
-            </div>
-            <button id="closeOverlay" class="close-button" aria-label="Close">&times;</button>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="sticky-nav">
-        <div class="nav-items">
-            <a href="#" class="nav-item" id="whoWeAreBtn">Who We Are</a>
-            <a href="mailto:ciao@cherrystreetlabs.com" class="nav-item">Contact Us</a>
-        </div>
-    </nav>
-
-    <script src="js/ascii-fluid.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>

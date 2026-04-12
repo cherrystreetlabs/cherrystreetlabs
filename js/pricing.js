@@ -51,7 +51,7 @@
         form.style.display = 'none';
         var success = document.createElement('div');
         success.className = 'form-success';
-        success.innerHTML = '<h4>Brief submitted \u2713</h4><p>Opening your email client... If it doesn\'t open automatically, email us directly at <a href="mailto:ciao@cherrystreetlabs.com" style="color:#A0001B;">ciao@cherrystreetlabs.com</a></p>';
+        success.innerHTML = '<h4>Brief submitted \u2713</h4><p>Opening your email client... If it doesn\'t open automatically, email us directly at <a href="mailto:ciao@cherrystreetlabs.com" style="color:#C41E3A;">ciao@cherrystreetlabs.com</a></p>';
         container.appendChild(success);
       });
     }
