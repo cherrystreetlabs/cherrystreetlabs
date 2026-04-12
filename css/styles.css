@@ -67,8 +67,8 @@ main {
 /* ── CTA ───────────────────────────────────────────────────────── */
 
 .brand-cta {
-  margin-top: 2rem;
-  animation: fadeIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  margin-top: 1.8rem;
+  animation: fadeIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 }
 
 .cta-link {
@@ -76,37 +76,39 @@ main {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.35);
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  transition: color 0.3s ease;
-  gap: 4px;
-  padding: 0.8rem 1.2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.4s ease;
 }
 
 .cta-link:hover {
   color: rgba(255, 255, 255, 0.9);
-  border-bottom-color: rgba(255, 255, 255, 0.4);
+  border-bottom-color: #A0001B;
+}
+
+.cta-label {
+  font-weight: 400;
+  letter-spacing: 0.1em;
 }
 
 .cta-price {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-style: italic;
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.cta-arrow {
   font-size: 1.1rem;
-  opacity: 0.4;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 2px;
+  transition: color 0.4s ease;
 }
 
-.cta-link:hover .cta-arrow {
-  opacity: 1;
-  transform: translateX(3px);
+.cta-link:hover .cta-price {
+  color: #fff;
 }
 
 @keyframes fadeIn {
@@ -246,9 +248,9 @@ main {
 /* ── Mobile ─────────────────────────────────────────────────────── */
 
 @media screen and (max-width: 768px) {
-    .brand-cta { margin-top: 1.5rem; }
-    .cta-link { font-size: 0.88rem; padding: 0.6rem 1rem; }
-    .cta-price { font-size: 1.1rem; }
+    .brand-cta { margin-top: 1.2rem; }
+    .cta-link { font-size: 0.72rem; padding: 0.5rem 0; }
+    .cta-price { font-size: 1rem; }
 
     .sticky-nav { padding: 2rem 0; }
     .nav-items { gap: 1.5rem; }
@@ -283,8 +285,9 @@ main {
 
 @media screen and (min-width: 1400px) {
     .brand-text { font-size: 6.5rem; }
-    .brand-cta { margin-top: 2.5rem; }
-    .cta-link { font-size: 1.05rem; padding: 1rem 1.4rem; }
+    .brand-cta { margin-top: 2rem; }
+    .cta-link { font-size: 0.82rem; padding: 0.7rem 0; }
+    .cta-price { font-size: 1.2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

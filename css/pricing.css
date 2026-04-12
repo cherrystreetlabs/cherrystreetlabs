@@ -1,48 +1,76 @@
-/* Cherry Street Labs — Pricing Page */
+/* Cherry Street Labs — Pricing Page (Polished) */
 
 /* ===== PAGE BASE ===== */
 body.pricing-page {
   background: #0c0c0c;
   font-family: 'Inter', system-ui, sans-serif;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.6;
-  padding: 2rem;
-  padding-bottom: 6rem;
-  position: relative;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.65;
+  overflow-x: hidden;
 }
 
 /* ===== TOP NAV BACK ===== */
 .pricing-nav-top {
-  padding: 1rem 0 3rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(12, 12, 12, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .back-link {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
   text-decoration: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   transition: color 0.3s ease;
 }
 
-.back-link:hover { color: rgba(255, 255, 255, 0.8); }
+.back-link:hover { color: rgba(255, 255, 255, 0.7); }
+
+.nav-cta {
+  padding: 0.6rem 1.4rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #fff;
+  background: #A0001B;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+
+.nav-cta:hover { background: #c50022; }
 
 /* ===== HERO ===== */
 .pricing-hero {
   text-align: center;
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
-  padding: 2rem 0 6rem;
+  padding: 10rem 2rem 5rem;
 }
 
 .pricing-hero-title {
   font-family: 'Instrument Serif', Georgia, serif;
   font-weight: 400;
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
   color: #fff;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .pricing-hero-title em {
@@ -52,37 +80,39 @@ body.pricing-page {
 
 .pricing-hero-sub {
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.52);
   line-height: 1.7;
-  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.48);
+  margin-bottom: 1.5rem;
 }
 
 .pricing-hero-trust {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.35);
+  gap: 0.8rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
   letter-spacing: 0.02em;
+  text-transform: uppercase;
   margin-bottom: 2.5rem;
   flex-wrap: wrap;
 }
 
-.trust-dot { color: rgba(160, 0, 27, 0.6); }
+.trust-dot { color: #A0001B; font-size: 0.5rem; }
 
 .pricing-cta-button {
   display: inline-block;
-  padding: 0.9rem 2.2rem;
+  padding: 1rem 2.5rem;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: #fff;
   background: #A0001B;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
@@ -95,28 +125,41 @@ body.pricing-page {
 .section-title {
   font-family: 'Instrument Serif', Georgia, serif;
   font-weight: 400;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   color: #fff;
   text-align: center;
   margin-bottom: 3rem;
   letter-spacing: -0.01em;
+  line-height: 1.15;
 }
 
-section {
+.page-section {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 4rem 1rem;
+  padding: 5rem 2rem;
 }
 
-/* ===== SECTION DIVIDER ===== */
+.page-section.tight {
+  padding: 3rem 2rem;
+}
+
 .page-divider {
-  width: 60px;
+  width: 40px;
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
   margin: 0 auto;
 }
 
+/* ===== SECTION DIVIDER LINE ===== */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
 /* ===== PRICING TIERS ===== */
+.pricing-tiers { padding-bottom: 2rem; }
+
 .tier-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -125,36 +168,40 @@ section {
 }
 
 .tier-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 2.2rem 2rem;
   position: relative;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .tier-card:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .tier-popular {
-  border-color: rgba(160, 0, 27, 0.3);
-  border-width: 1px;
+  border-color: rgba(160, 0, 27, 0.35);
+  background: rgba(160, 0, 27, 0.04);
+}
+
+.tier-popular:hover {
+  border-color: rgba(160, 0, 27, 0.5);
 }
 
 .popular-badge {
   position: absolute;
-  top: -12px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   background: #A0001B;
   color: #fff;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 4px 14px;
+  padding: 3px 12px;
   border-radius: 20px;
   white-space: nowrap;
 }
@@ -163,43 +210,44 @@ section {
 
 .tier-name {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #fff;
   font-weight: 400;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .tier-price {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 600;
   color: #fff;
+  letter-spacing: -0.02em;
 }
 
 .tier-price .plus {
   font-weight: 400;
-  font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .tier-subtitle {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.38);
   margin-top: 0.3rem;
 }
 
 .tier-divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.06);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.3rem;
 }
 
 .tier-body { margin-bottom: 2rem; }
 
 .tier-include-note {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.32);
+  margin-bottom: 0.8rem;
   font-style: italic;
 }
 
@@ -210,9 +258,9 @@ section {
 }
 
 .tier-features li {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  padding: 0.45rem 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.58);
+  padding: 0.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
@@ -221,29 +269,29 @@ section {
 .tier-features li::before {
   content: "\2713";
   color: #A0001B;
-  margin-right: 0.6rem;
-  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .tier-timeline {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 1.3rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .timeline-label {
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.32);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 .timeline-value {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
 }
@@ -251,23 +299,23 @@ section {
 .tier-cta {
   display: block;
   text-align: center;
-  padding: 0.75rem;
+  padding: 0.7rem;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   transition: all 0.3s ease;
 }
 
 .tier-cta:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .tier-cta-primary {
@@ -279,126 +327,137 @@ section {
 .tier-cta-primary:hover {
   background: #c50022;
   border-color: #c50022;
+  color: #fff;
 }
 
 .pricing-note {
   text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.42);
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.38);
 }
 
 .pricing-note a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 /* ===== MATRIX TABLE ===== */
+.pricing-matrix { }
+
 .matrix-table-wrapper {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .matrix-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .matrix-table th,
 .matrix-table td {
-  padding: 1.2rem 1.5rem;
+  padding: 1.2rem 1.4rem;
   text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   vertical-align: top;
 }
 
 .matrix-table th {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: #fff;
   font-weight: 400;
   background: rgba(255, 255, 255, 0.03);
 }
 
-.matrix-table th:first-child,
+.matrix-table thead th:first-child {
+  text-align: left;
+}
+
 .matrix-table td:first-child {
   text-align: left;
-  background: rgba(255, 255, 255, 0.02);
 }
 
 .matrix-criteria {
   color: #fff;
   font-weight: 500;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 
 .matrix-note {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.35);
-  font-weight: 400;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.32);
+  display: block;
+  margin-top: 3px;
 }
 
 /* ===== SCOPE SECTION ===== */
+.scope-section .section-title { margin-bottom: 2.5rem; }
+
 .scope-content {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
-.scope-content p {
+.scope-content > p {
   font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.52);
   margin-bottom: 1.5rem;
-  color: rgba(255, 255, 255, 0.58);
 }
 
 .scope-clause {
-  background: rgba(160, 0, 27, 0.06);
+  background: rgba(160, 0, 27, 0.05);
   border-left: 3px solid #A0001B;
-  padding: 1.5rem 2rem;
-  border-radius: 0 8px 8px 0;
+  padding: 1.8rem 2rem;
+  border-radius: 0 6px 6px 0;
   margin: 2rem 0;
 }
 
 .scope-clause h4 {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: #fff;
   font-weight: 400;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
-.scope-clause em {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.42);
+.scope-clause > p:first-of-type em {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.38);
   font-style: italic;
 }
 
 .scope-clause p {
   font-size: 0.9rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.58);
   margin-bottom: 0;
 }
 
 .scope-note {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   padding: 1.2rem 1.5rem;
   font-size: 0.85rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.52);
+  color: rgba(255, 255, 255, 0.48);
 }
 
 .scope-note strong {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 /* ===== ADD-ONS ===== */
+.addons-section { }
+
 .addons-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -406,50 +465,54 @@ section {
 }
 
 .addon-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: 6px;
+  padding: 1.5rem 1.2rem;
   text-align: center;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .addon-card:hover {
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.addon-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+.addon-icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
 
 .addon-name {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: #fff;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   font-weight: 400;
 }
 
 .addon-desc {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.42);
-  margin-bottom: 1rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 0.8rem;
   line-height: 1.5;
 }
 
 .addon-price {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: #A0001B;
+  letter-spacing: 0.02em;
 }
 
 /* ===== FAQ ===== */
+.faq-section { }
+
 .faq-list {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .faq-question {
@@ -461,9 +524,9 @@ section {
   background: none;
   border: none;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 500;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.72);
   text-align: left;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -472,8 +535,8 @@ section {
 .faq-question:hover { color: #A0001B; }
 
 .faq-icon {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.25);
   transition: transform 0.3s ease;
   flex-shrink: 0;
   margin-left: 1rem;
@@ -484,14 +547,14 @@ section {
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
 }
 
-.faq-answer p {
-  padding: 0 0 1.3rem;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.52);
+.faq-answer-inner {
+  padding-bottom: 1.3rem;
+  font-size: 0.88rem;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.42);
 }
 
 .faq-item.open .faq-answer {
@@ -501,16 +564,16 @@ section {
 /* ===== GET STARTED ===== */
 .get-started-grid {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 2rem;
   align-items: start;
 }
 
 .brief-form-card,
 .contact-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
   padding: 2.5rem;
 }
 
@@ -525,23 +588,24 @@ section {
 
 .form-subtitle {
   font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.38);
   margin-bottom: 2rem;
 }
 
 .brief-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
 .form-group label {
   display: block;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.02em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .form-group textarea,
@@ -549,9 +613,9 @@ section {
 .form-group input {
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 0.9rem;
   color: #fff;
@@ -560,14 +624,14 @@ section {
   -webkit-appearance: none;
 }
 
-.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group textarea { resize: vertical; min-height: 90px; }
 
 .form-group select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
   padding-right: 2.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .form-group select option {
@@ -583,44 +647,45 @@ section {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.22);
 }
 
 .form-submit-btn {
+  width: 100%;
   padding: 0.9rem 2rem;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
   background: #A0001B;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  letter-spacing: 0.02em;
-  transition: background 0.3s ease, transform 0.2s ease;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
   margin-top: 0.5rem;
 }
 
-.form-submit-btn:hover {
-  background: #c50022;
-  transform: translateY(-1px);
-}
+.form-submit-btn:hover { background: #c50022; }
 
 .form-note {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.28);
   text-align: center;
   margin-top: 1rem;
 }
 
-/* Contact card side */
-.contact-card h3 { margin-bottom: 2rem; }
+/* Contact card */
+.contact-card h3 {
+  margin-bottom: 2rem;
+}
 
 .contact-methods {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
 }
 
 .contact-method {
@@ -628,61 +693,61 @@ section {
   flex-direction: column;
   align-items: flex-start;
   padding: 1.2rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   text-decoration: none;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
 .contact-method:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(160, 0, 27, 0.3);
 }
 
-.contact-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
-.contact-label { font-size: 0.78rem; color: rgba(255, 255, 255, 0.35); text-transform: uppercase; letter-spacing: 0.06em; }
+.contact-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+.contact-label { font-size: 0.72rem; color: rgba(255, 255, 255, 0.32); text-transform: uppercase; letter-spacing: 0.06em; }
 .contact-value { font-size: 0.95rem; color: #fff; font-weight: 500; margin-top: 2px; }
 
 .contact-trust {
-  padding: 1.2rem;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .contact-trust p {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.38);
   font-style: italic;
 }
 
 /* ===== FOOTER ===== */
 .pricing-footer {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 3rem 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   max-width: 1080px;
   margin: 0 auto;
 }
 
 .pricing-footer p {
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.25);
-  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.22);
+  margin-bottom: 0.8rem;
 }
 
 .pricing-footer a {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
   text-decoration: none;
+  letter-spacing: 0.03em;
   transition: color 0.3s ease;
 }
 
-.pricing-footer a:hover { color: rgba(255, 255, 255, 0.8); }
+.pricing-footer a:hover { color: rgba(255, 255, 255, 0.7); }
 
-/* ===== PRICING FORM SUCCESS ===== */
+/* ===== FORM SUCCESS ===== */
 .form-success {
   text-align: center;
   padding: 2rem 0;
@@ -690,27 +755,38 @@ section {
 
 .form-success h4 {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #fff;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
 .form-success p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.48);
   line-height: 1.6;
 }
+
+.form-success a { color: #A0001B; }
 
 /* ===== MOBILE RESPONSIVE ===== */
 
 @media screen and (max-width: 768px) {
-  body.pricing-page { padding: 1rem; padding-bottom: 4rem; }
+  body.pricing-page { padding: 0; }
 
-  .pricing-hero { padding: 1rem 0 3rem; }
-  .pricing-hero-title { font-size: 2.2rem; }
+  .pricing-nav-top {
+    padding: 1rem 1.2rem;
+  }
+
+  .pricing-hero {
+    padding: 7rem 1.5rem 3rem;
+  }
+
+  .pricing-hero-title { font-size: 2rem; }
   .pricing-hero-sub { font-size: 0.95rem; }
 
-  .section-title { font-size: 1.8rem; margin-bottom: 2rem; }
+  .section-title { font-size: 1.7rem; margin-bottom: 2rem; }
+
+  .page-section { padding: 3rem 1.5rem; }
 
   .tier-grid {
     grid-template-columns: 1fr;
@@ -718,19 +794,19 @@ section {
   }
 
   .tier-card { padding: 1.5rem; }
+  .tier-price { font-size: 1.8rem; }
 
   .addons-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
+    gap: 0.6rem;
   }
+
+  .addon-card { padding: 1rem; }
 
   .matrix-table th,
-  .matrix-table td {
-    padding: 0.8rem;
-    font-size: 0.82rem;
-  }
+  .matrix-table td { padding: 0.7rem 0.8rem; font-size: 0.8rem; }
 
-  .scope-clause { padding: 1.2rem 1.5rem; }
+  .scope-clause { padding: 1.3rem 1.5rem; }
 
   .get-started-grid {
     grid-template-columns: 1fr;
@@ -743,9 +819,9 @@ section {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-  .tier-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .tier-grid { gap: 1rem; }
   .addons-grid { grid-template-columns: repeat(2, 1fr); }
-  .get-started-grid { gap: 1.2rem; }
+  .get-started-grid { gap: 1.5rem; }
 }
 
 @media screen and (min-width: 1025px) {
@@ -754,7 +830,7 @@ section {
 
 @media screen and (min-width: 1200px) {
   .tier-grid { gap: 1.5rem; }
-  section { padding: 5rem 1rem; }
+  .page-section { padding: 6rem 2rem; }
 }
 
 /* ===== ACCESSIBILITY ===== */
