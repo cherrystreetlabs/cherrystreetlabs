@@ -64,6 +64,51 @@ main {
     margin-top: 0.15em;
 }
 
+/* ── CTA ───────────────────────────────────────────────────────── */
+
+.brand-cta {
+  margin-top: 2rem;
+  animation: fadeIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.cta-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+  gap: 4px;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.cta-link:hover {
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.cta-price {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cta-arrow {
+  font-size: 1.1rem;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cta-link:hover .cta-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -201,6 +246,10 @@ main {
 /* ── Mobile ─────────────────────────────────────────────────────── */
 
 @media screen and (max-width: 768px) {
+    .brand-cta { margin-top: 1.5rem; }
+    .cta-link { font-size: 0.88rem; padding: 0.6rem 1rem; }
+    .cta-price { font-size: 1.1rem; }
+
     .sticky-nav { padding: 2rem 0; }
     .nav-items { gap: 1.5rem; }
     .nav-item { font-size: 0.75rem; }
@@ -234,6 +283,8 @@ main {
 
 @media screen and (min-width: 1400px) {
     .brand-text { font-size: 6.5rem; }
+    .brand-cta { margin-top: 2.5rem; }
+    .cta-link { font-size: 1.05rem; padding: 1rem 1.4rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

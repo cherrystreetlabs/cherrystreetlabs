@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — Cherry Street Labs</title>
+  <meta name="description" content="Fixed-price app development starting at $8,000. MVPs in weeks, not months.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pricing.css">
+</head>
+<body class="pricing-page">
+  <canvas id="grain" aria-hidden="true"></canvas>
+
+  <section class="pricing-hero">
+    <div class="pricing-nav-top">
+      <a href="index.html" class="back-link">← Cherry Street Labs</a>
+    </div>
+    <h1 class="pricing-hero-title">We'll build your app<br><em>starting at $8,000</em></h1>
+    <p class="pricing-hero-sub">A focused product studio: one founding product engineer, a designer, and AI acceleration. Launch-ready MVPs in weeks, not months. Fixed price. Zero surprises.</p>
+    <div class="pricing-hero-trust">
+      <span>11+ years building startups</span>
+      <span class="trust-dot">·</span>
+      <span>Full IP ownership on delivery</span>
+      <span class="trust-dot">·</span>
+      <span>Trusted by early-stage founders</span>
+    </div>
+    <a href="#get-started" class="pricing-cta-button">Get Started in 60 Seconds</a>
+  </section>
+
+  <section class="pricing-tiers" id="pricing">
+    <h2 class="section-title">Choose the right tier for your product</h2>
+
+    <div class="tier-grid">
+
+      <!-- STARTER -->
+      <div class="tier-card">
+        <div class="tier-header">
+          <h3 class="tier-name">Starter</h3>
+          <div class="tier-price">$8,000</div>
+          <p class="tier-subtitle">Idea validation or simple utility tool</p>
+        </div>
+        <div class="tier-divider"></div>
+        <div class="tier-body">
+          <ul class="tier-features">
+            <li>1–4 core features</li>
+            <li>1 platform (web or single mobile)</li>
+            <li>Basic auth + database</li>
+            <li>Clean UI using our design system</li>
+            <li>Deployment + basic docs</li>
+            <li>14-day post-launch support</li>
+          </ul>
+          <div class="tier-timeline">
+            <span class="timeline-label">Delivery</span>
+            <span class="timeline-value">3–4 weeks</span>
+          </div>
+        </div>
+        <a href="#get-started" class="tier-cta">Get Started</a>
+      </div>
+
+      <!-- GROWTH (highlighted) -->
+      <div class="tier-card tier-popular">
+        <div class="popular-badge">Most Popular for Startups</div>
+        <div class="tier-header">
+          <h3 class="tier-name">Growth</h3>
+          <div class="tier-price">$16,000</div>
+          <p class="tier-subtitle">Market-ready MVP for early users</p>
+        </div>
+        <div class="tier-divider"></div>
+        <div class="tier-body">
+          <p class="tier-include-note">Everything in Starter, plus:</p>
+          <ul class="tier-features">
+            <li>5–8 features</li>
+            <li>1–2 integrations (payments, AI APIs, email)</li>
+            <li>Polished custom UI/UX + animations</li>
+            <li>Basic analytics + testing</li>
+            <li>30-day support + launch checklist</li>
+          </ul>
+          <div class="tier-timeline">
+            <span class="timeline-label">Delivery</span>
+            <span class="timeline-value">5–8 weeks</span>
+          </div>
+        </div>
+        <a href="#get-started" class="tier-cta tier-cta-primary">Get Started</a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="tier-card">
+        <div class="tier-header">
+          <h3 class="tier-name">Enterprise</h3>
+          <div class="tier-price">$28,000<span class="plus">+</span></div>
+          <p class="tier-subtitle">Complex products or scalable SaaS</p>
+        </div>
+        <div class="tier-divider"></div>
+        <div class="tier-body">
+          <p class="tier-include-note">Everything in Growth, plus:</p>
+          <ul class="tier-features">
+            <li>Multi-platform</li>
+            <li>Advanced architecture / AI</li>
+            <li>Full QA + security review</li>
+            <li>Compliance-ready (if needed)</li>
+            <li>60-day support + handover plan</li>
+          </ul>
+          <div class="tier-timeline">
+            <span class="timeline-label">Delivery</span>
+            <span class="timeline-value">8–12+ weeks</span>
+          </div>
+        </div>
+        <a href="#get-started" class="tier-cta">Get Started</a>
+      </div>
+    </div>
+
+    <p class="pricing-note">Not sure which tier? <a href="#matrix">Use the matrix below</a> or book a 15-minute scope call.</p>
+  </section>
+
+  <section class="pricing-matrix" id="matrix">
+    <h2 class="section-title">Quickly see which tier fits your project</h2>
+    <div class="matrix-table-wrapper">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Starter</th>
+            <th>Growth</th>
+            <th>Enterprise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="matrix-criteria">Core Features</td>
+            <td>1–4<br><span class="matrix-note">(one main flow)</span></td>
+            <td>5–8<br><span class="matrix-note">(multiple flows)</span></td>
+            <td>9+ or complex<br><span class="matrix-note">workflows</span></td>
+          </tr>
+          <tr>
+            <td class="matrix-criteria">Platforms</td>
+            <td>1 (web or mobile)</td>
+            <td>1–2</td>
+            <td>2+ or native</td>
+          </tr>
+          <tr>
+            <td class="matrix-criteria">Integrations</td>
+            <td>0–1 basic<br><span class="matrix-note">(auth, DB, Stripe)</span></td>
+            <td>2–3<br><span class="matrix-note">(payments, email, AI)</span></td>
+            <td>4+ custom<br><span class="matrix-note">(APIs, compliance)</span></td>
+          </tr>
+          <tr>
+            <td class="matrix-criteria">AI / Data</td>
+            <td>Static or simple CRUD</td>
+            <td>Basic AI<br><span class="matrix-note">(prompts, simple models)</span></td>
+            <td>Advanced AI/ML<br><span class="matrix-note">(real-time, custom)</span></td>
+          </tr>
+          <tr>
+            <td class="matrix-criteria">Design</td>
+            <td>Clean template +<br>our design system</td>
+            <td>Full custom UI/UX<br>+ animations</td>
+            <td>Brand system +<br>advanced prototyping</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="scope-section">
+    <h2 class="section-title">Fixed price. Crystal-clear scope. No surprises.</h2>
+    <div class="scope-content">
+      <p>At Cherry Street Labs we work with fixed pricing because we ship fast and predictably. Every project starts with a signed scope document that lists exact features, platforms, integrations, and success metrics.</p>
+
+      <div class="scope-clause">
+        <h4>Our Scope Protection Clause</h4>
+        <p><em>Included in every contract.</em></p>
+        <p>Pricing is fixed for the exact scope documented in our signed agreement. Timeline assumes your feedback within 48 hours on all reviews. Any scope changes, new requirements, or delays outside our control (e.g., waiting on your API keys, third-party approvals, or payment methods) will be handled via a documented change order or switch to our $7,000/month retainer (billed in advance, pro-rated). We'll never surprise you with extra costs—everything is documented first.</p>
+      </div>
+
+      <div class="scope-note">
+        <p><strong>External accounts:</strong> For services that require owner signup (Stripe, OpenAI, Supabase, etc.), we guide you through setup during kickoff. You provide the accounts and payment methods—we never store or pay for them on your behalf.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="addons-section">
+    <h2 class="section-title">Add-ons</h2>
+    <div class="addons-grid">
+      <div class="addon-card">
+        <div class="addon-icon">📱</div>
+        <div class="addon-name">Extra Platform</div>
+        <div class="addon-desc">iOS, Android, or additional web app</div>
+        <div class="addon-price">+$5,000</div>
+      </div>
+      <div class="addon-card">
+        <div class="addon-icon">🤖</div>
+        <div class="addon-name">Advanced AI/ML</div>
+        <div class="addon-desc">Custom models, real-time processing</div>
+        <div class="addon-price">+$6,000–$9,000</div>
+      </div>
+      <div class="addon-card">
+        <div class="addon-icon">🎨</div>
+        <div class="addon-name">Custom Branding</div>
+        <div class="addon-desc">Full design system & brand identity</div>
+        <div class="addon-price">+$3,000</div>
+      </div>
+      <div class="addon-card">
+        <div class="addon-icon">🛡</div>
+        <div class="addon-name">Extended Support</div>
+        <div class="addon-desc">30 additional days post-launch</div>
+        <div class="addon-price">+$2,000</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">How do we avoid scope creep?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Every project starts with a signed scope document. Our Scope Protection Clause is included in every contract — we'll never surprise you with extra costs. If scope changes, it's documented first.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What if it takes longer than the timeline?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Our timeline assumes feedback within 48 hours. If delays come from your side, we can switch to a $7,000/month retainer (billed in advance, pro-rated). It's transparent, not punitive.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do we own the code?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Yes — full IP transfer on final payment. The code, the designs, everything. It's yours.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What about external accounts like Stripe or OpenAI?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>You handle signup and payment methods — we guide you through setup during kickoff. We only use the keys you provide and never store payments on your behalf.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can we do a discovery call first?<span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Absolutely. We offer a free 15-minute scope call — no commitments, just a quick chat about what you're building.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="get-started-section" id="get-started">
+    <h2 class="section-title">Ready to ship? Let's build it together.</h2>
+    <div class="get-started-grid">
+
+      <!-- LEFT: 60-Second Brief Form -->
+      <div class="brief-form-card">
+        <h3>60-second project brief</h3>
+        <p class="form-subtitle">Fill this out and we'll get back to you within 24 hours.</p>
+        <form id="projectBriefForm" class="brief-form">
+          <div class="form-group">
+            <label for="projectDesc">What are you building?</label>
+            <textarea id="projectDesc" name="projectDesc" rows="4" placeholder="Tell us about your product idea..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="budgetRange">Budget range</label>
+            <select id="budgetRange" name="budgetRange" required>
+              <option value="">Select a tier…</option>
+              <option value="starter">Starter — $8,000</option>
+              <option value="growth">Growth — $16,000</option>
+              <option value="enterprise">Enterprise — $28,000+</option>
+              <option value="not-sure">Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="platforms">Preferred platform(s)</label>
+            <select id="platforms" name="platforms" required>
+              <option value="">Select…</option>
+              <option value="web">Web app</option>
+              <option value="mobile">Mobile app</option>
+              <option value="both">Both web + mobile</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="email">Your email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          </div>
+          <button type="submit" class="form-submit-btn">Submit Brief →</button>
+        </form>
+        <p class="form-note">We'll review your brief and reply within 24 hours with a 15-min call slot.</p>
+      </div>
+
+      <!-- RIGHT: Quick Contact / Calendly -->
+      <div class="contact-card">
+        <h3>Or talk to us directly</h3>
+        <div class="contact-methods">
+          <a href="mailto:ciao@cherrystreetlabs.com" class="contact-method">
+            <span class="contact-icon">✉</span>
+            <span class="contact-label">Email us</span>
+            <span class="contact-value">ciao@cherrystreetlabs.com</span>
+          </a>
+          <a href="https://calendly.com" target="_blank" rel="noopener" class="contact-method">
+            <span class="contact-icon">📅</span>
+            <span class="contact-label">Book a call</span>
+            <span class="contact-value">Free 15-min scope call</span>
+          </a>
+        </div>
+        <div class="contact-trust">
+          <p>Built by a founding product engineer with 11+ years in startups. AI-accelerated delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pricing-footer">
+    <p>© 2026 Cherry Street Labs. All rights reserved.</p>
+    <a href="index.html">← Back to home</a>
+  </footer>
+
+  <script src="js/ascii-fluid.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pricing.js"></script>
+</body>
+</html>
