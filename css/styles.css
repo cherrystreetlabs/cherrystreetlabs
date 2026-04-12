@@ -280,3 +280,61 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ===== PARTNERS SECTION ===== */
+.partners-section {
+  background: #FFF;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+}
+
+.partners-section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+
+.partner-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.partner-card:hover { border-color: var(--accent); }
+
+.partner-name {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.partner-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.partner-link {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.partner-link:hover { opacity: 0.7; }
+
+@media screen and (max-width: 768px) {
+  .partners-section { padding: 80px 1.5rem; }
+  .partners-grid { grid-template-columns: 1fr; gap: 1rem; }
+}
