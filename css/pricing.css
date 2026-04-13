@@ -127,7 +127,7 @@ body.pricing-page {
 
 .section-title {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
   font-weight: 400;
   color: #1A1714;
   text-align: center;
@@ -559,7 +559,7 @@ body.pricing-page {
   .pricing-nav-top { padding: 1rem 1.2rem; }
   .pricing-hero { padding: 7rem 1.5rem 3rem; }
   .pricing-hero-title { font-size: 2rem; }
-  .section-title { font-size: 1.7rem; }
+  .section-title { font-size: 2rem; }
   .page-section { padding: 3rem 1.5rem; }
   .tier-grid { grid-template-columns: 1fr; gap: 1rem; }
   .addons-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
