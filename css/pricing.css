@@ -570,3 +570,64 @@ body.pricing-page {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ===== SCROLL ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-item:nth-child(1) { transition-delay: 0s; }
+.fade-item:nth-child(2) { transition-delay: 0.08s; }
+.fade-item:nth-child(3) { transition-delay: 0.16s; }
+.fade-item:nth-child(4) { transition-delay: 0.24s; }
+.fade-item:nth-child(5) { transition-delay: 0.32s; }
+.fade-item:nth-child(6) { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fade-item { opacity: 1 !important; transform: none !important; }
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-item:nth-child(1) { transition-delay: 0s; }
+.fade-item:nth-child(2) { transition-delay: 0.08s; }
+.fade-item:nth-child(3) { transition-delay: 0.16s; }
+.fade-item:nth-child(4) { transition-delay: 0.24s; }
+.fade-item:nth-child(5) { transition-delay: 0.32s; }
+.fade-item:nth-child(6) { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .fade-item { opacity: 1 !important; transform: none !important; }
+}

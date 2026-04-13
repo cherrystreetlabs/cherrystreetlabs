@@ -22,24 +22,24 @@
 
   <!-- HERO -->
   <section class="pricing-hero">
-    <h1 class="pricing-hero-title">We'll build your app<br><em>starting at $8,000</em></h1>
-    <p class="pricing-hero-sub">A focused product studio where craft meets speed. Launch-ready MVPs in weeks, not months. Fixed price. Zero surprises.</p>
-    <div class="pricing-hero-trust">
+    <h1 class="pricing-hero-title fade-item">We'll build your app<br><em>starting at $8,000</em></h1>
+    <p class="pricing-hero-sub fade-item">A focused product studio where craft meets speed. Launch-ready MVPs in weeks, not months. Fixed price. Zero surprises.</p>
+    <div class="pricing-hero-trust fade-item">
       <span>11+ years building startups</span>
       <span class="trust-dot">&middot;</span>
       <span>Full IP ownership on delivery</span>
       <span class="trust-dot">&middot;</span>
       <span>Trusted by early-stage founders</span>
     </div>
-    <a href="#get-started" class="pricing-cta-button">Get Started in 60 Seconds</a>
+    <a href="#get-started" class="pricing-cta-button fade-item">Get Started in 60 Seconds</a>
   </section>
 
   <div class="section-divider"></div>
 
   <!-- PRICING TIERS -->
   <section class="page-section pricing-tiers" id="pricing">
-    <span class="section-label">Pricing</span>
-    <h2 class="section-title">Choose the right tier for your product</h2>
+    <span class="section-label fade-item">Pricing</span>
+    <h2 class="section-title fade-item">Choose the right tier for your product</h2>
 
     <div class="tier-grid">
 
@@ -127,8 +127,8 @@
 
   <!-- MATRIX -->
   <section class="page-section pricing-matrix" id="matrix">
-    <span class="section-label">Comparison</span>
-    <h2 class="section-title">Quickly see which tier fits your project</h2>
+    <span class="section-label fade-item">Comparison</span>
+    <h2 class="section-title fade-item">Quickly see which tier fits your project</h2>
     <div class="matrix-section">
       <div class="matrix-table-wrapper">
         <table class="matrix-table">
@@ -217,8 +217,8 @@
 
   <!-- SCOPE -->
   <section class="page-section scope-section">
-    <span class="section-label">Our promise</span>
-    <h2 class="section-title">Fixed price. Crystal-clear scope. No surprises.</h2>
+    <span class="section-label fade-item">Our promise</span>
+    <h2 class="section-title fade-item">Fixed price. Crystal-clear scope.<br>No surprises.</h2>
     <div class="scope-content">
       <p>At Cherry Street Labs we work with fixed pricing because we ship fast and predictably. Every project starts with a signed scope document that lists exact features, platforms, integrations, and success metrics.</p>
 
@@ -238,8 +238,8 @@
 
   <!-- ADD-ONS -->
   <section class="page-section addons-section">
-    <span class="section-label">Extras</span>
-    <h2 class="section-title">Add-ons</h2>
+    <span class="section-label fade-item">Extras</span>
+    <h2 class="section-title fade-item">Add-ons</h2>
     <div class="addons-grid">
       <div class="addon-card">
         <div class="addon-icon">&#x1F4F1;</div>
@@ -272,8 +272,8 @@
 
   <!-- FAQ -->
   <section class="page-section faq-section">
-    <span class="section-label">FAQ</span>
-    <h2 class="section-title">Common questions</h2>
+    <span class="section-label fade-item">FAQ</span>
+    <h2 class="section-title fade-item">Common questions</h2>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-question">How do we avoid scope creep?<span class="faq-icon">+</span></button>
@@ -302,8 +302,8 @@
 
   <!-- GET STARTED -->
   <section class="page-section" id="get-started">
-    <span class="section-label">Let's go</span>
-    <h2 class="section-title">Ready to ship? Let's build it together.</h2>
+    <span class="section-label fade-item">Let's go</span>
+    <h2 class="section-title fade-item">Ready to ship? Let's build it together.</h2>
     <div class="get-started-grid">
 
       <!-- LEFT: 60-Second Brief Form -->
@@ -373,5 +373,24 @@
   </footer>
 
   <script src="js/pricing.js"></script>
+
+  <script>
+  (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var items = document.querySelectorAll('.fade-item');
+      items.forEach(function(el) {
+          var observer = new IntersectionObserver(function(entries) {
+              entries.forEach(function(e) {
+                  if (e.isIntersecting) {
+                      el.classList.add('visible');
+                      observer.unobserve(el);
+                  }
+              });
+          }, { threshold: 0.1 });
+          observer.observe(el);
+      });
+  })();
+  </script>
+
 </body>
 </html>
