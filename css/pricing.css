@@ -61,9 +61,9 @@ body.pricing-page {
 }
 
 .pricing-hero-title {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Instrument Serif', Georgia, serif;
   font-size: clamp(2.2rem, 5vw, 3.4rem);
-  font-weight: 800;
+  font-weight: 400;
   color: #1A1714;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -126,9 +126,9 @@ body.pricing-page {
 }
 
 .section-title {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Instrument Serif', Georgia, serif;
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 800;
+  font-weight: 400;
   color: #1A1714;
   text-align: center;
   letter-spacing: -0.03em;
