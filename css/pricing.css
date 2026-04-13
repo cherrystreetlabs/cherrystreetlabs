@@ -631,3 +631,26 @@ body.pricing-page {
   * { animation: none !important; transition: none !important; }
   .fade-item { opacity: 1 !important; transform: none !important; }
 }
+
+/* ===== SUBSCRIPTION TIER HIGHLIGHT ===== */
+.tier-highlight {
+  border-color: #C41E3A;
+  border-width: 2px;
+  position: relative;
+}
+
+.tier-highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #C41E3A;
+  border-radius: 8px 8px 0 0;
+}
+
+.tier-badge-dark {
+  background: #1A1714;
+  color: #fff;
+}
