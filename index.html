@@ -20,10 +20,8 @@
     <!-- Hero -->
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-mesh-bg">
-            <div class="mesh-blob mesh-blob-cream"></div>
-            <div class="mesh-blob mesh-blob-rose"></div>
-            <div class="mesh-blob mesh-blob-sand"></div><div class="mesh-blob mesh-blob-accent"></div>
+        <div class="hero-shader-bg">
+            <canvas id="heroShader"></canvas>
         </div>
         <div class="hero-inner">
             <div class="hero-glass-card">
@@ -127,6 +125,7 @@
     </footer>
 
     <!-- Scroll Animations -->
+    <script src="js/shader.js"></script>
     <script>
     (function() {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
