@@ -33,6 +33,56 @@ body {
   background: var(--bg);
 }
 
+/* ===== SHADER TOGGLE ===== */
+.shader-toggle {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  outline: none;
+}
+
+.shader-toggle:hover {
+  opacity: 0.85;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.shader-toggle.active {
+  opacity: 0.8;
+  border-color: rgba(196, 30, 58, 0.2);
+  color: var(--accent);
+}
+
+.shader-toggle-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.shader-toggle.active .shader-toggle-dot {
+  background: var(--accent);
+}
+
 .hero-shader-bg {
   position: absolute;
   inset: 0;
@@ -390,6 +440,7 @@ body {
   .section { padding: var(--section-gap) 1.5rem; }
 
   .hero { padding: 3rem 1.5rem; min-height: 90vh; }
+  .shader-toggle { bottom: 1rem; right: 1rem; font-size: 0.6rem; padding: 0.3rem 0.6rem; }
   .hero-inner { max-width: 100%; }
   .hero-tagline { font-size: 1.15rem; }
 
