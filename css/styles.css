@@ -21,7 +21,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ===== GLASS ORBS (subtle, behind hero) ===== */
+/* ===== ANIMATED MESH GRADIENT (hero background) ===== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -30,9 +30,10 @@ body {
   padding: 4rem 2rem;
   position: relative;
   overflow: hidden;
+  background: var(--bg);
 }
 
-.hero-bg-glass {
+.hero-mesh-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -40,63 +41,77 @@ body {
   pointer-events: none;
 }
 
-.glass-orb {
+.mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0;
-  animation: orbFadeIn 2s ease-out forwards;
+  filter: blur(120px);
+  mix-blend-mode: multiply;
+  opacity: 0.7;
 }
 
-.glass-orb-1 {
+/* Cream / warm white blob */
+.mesh-blob-cream {
+  width: 800px;
+  height: 700px;
+  background: linear-gradient(135deg, #FFF9F0 0%, #F5EDE3 100%);
+  top: -20%;
+  right: -15%;
+  animation: meshFloat1 20s ease-in-out infinite;
+}
+
+/* Soft cherry blob */
+.mesh-blob-rose {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(210, 80, 80, 0.12) 0%, rgba(196, 80, 80, 0.05) 50%, transparent 70%);
+  bottom: -10%;
+  left: -5%;
+  animation: meshFloat2 25s ease-in-out infinite;
+}
+
+/* Warm sand blob */
+.mesh-blob-sand {
   width: 500px;
   height: 500px;
-  top: -10%;
-  right: -10%;
-  background: radial-gradient(circle, rgba(196, 30, 58, 0.08) 0%, rgba(245, 242, 237, 0) 70%);
-  animation-delay: 0.5s;
-  animation: orbFadeIn 2s 0.5s ease-out forwards, orbDrift1 25s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(230, 210, 185, 0.3) 0%, transparent 70%);
+  top: 30%;
+  left: 30%;
+  animation: meshFloat3 18s ease-in-out infinite;
 }
 
-.glass-orb-2 {
-  width: 400px;
-  height: 400px;
-  bottom: 5%;
-  left: -8%;
-  background: radial-gradient(circle, rgba(196, 30, 58, 0.06) 0%, rgba(235, 230, 223, 0) 70%);
-  animation-delay: 1s;
-  animation: orbFadeIn 2s 1s ease-out forwards, orbDrift2 30s ease-in-out infinite;
+/* Faint cherry accent */
+.mesh-blob-accent {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(196, 30, 58, 0.08) 0%, transparent 60%);
+  top: 15%;
+  right: 25%;
+  animation: meshFloat4 22s ease-in-out infinite;
 }
 
-.glass-orb-3 {
-  width: 300px;
-  height: 300px;
-  top: 40%;
-  right: 15%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
-  animation-delay: 1.5s;
-  animation: orbFadeIn 2s 1.5s ease-out forwards, orbDrift3 20s ease-in-out infinite;
-}
-
-@keyframes orbFadeIn {
-  to { opacity: 1; }
-}
-
-@keyframes orbDrift1 {
+@keyframes meshFloat1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-30px, 20px) scale(1.05); }
-  66% { transform: translate(15px, -10px) scale(0.95); }
+  25% { transform: translate(-60px, 40px) scale(1.08); }
+  50% { transform: translate(30px, -20px) scale(0.95); }
+  75% { transform: translate(-20px, 30px) scale(1.03); }
 }
 
-@keyframes orbDrift2 {
+@keyframes meshFloat2 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(25px, -15px) scale(1.08); }
-  66% { transform: translate(-10px, 15px) scale(0.92); }
+  25% { transform: translate(50px, -30px) scale(1.05); }
+  50% { transform: translate(-40px, 20px) scale(0.92); }
+  75% { transform: translate(20px, 10px) scale(1.06); }
 }
 
-@keyframes orbDrift3 {
+@keyframes meshFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); rotate: 0deg; }
+  33% { transform: translate(-40px, -50px) scale(1.1) rotate(5deg); }
+  66% { transform: translate(30px, 40px) scale(0.9) rotate(-3deg); }
+}
+
+@keyframes meshFloat4 {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-20px, 25px) scale(1.1); }
+  50% { transform: translate(-80px, 60px) scale(1.15); }
 }
 
 .hero-inner {
@@ -232,30 +247,6 @@ body {
   position: relative;
 }
 
-/* ===== LIQUID GRADIENT DIVIDER (between who and cta) ===== */
-.who-section::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(196, 30, 58, 0.08) 20%,
-    rgba(196, 30, 58, 0.15) 50%,
-    rgba(196, 30, 58, 0.08) 80%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: gradientShift 8s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
 .who-section-inner { max-width: 1080px; margin: 0 auto; }
 
 .who-grid {
@@ -305,25 +296,6 @@ body {
 }
 
 /* ===== CTA SECTION ===== */
-/* ===== LIQUID GRADIENT DIVIDER (before CTA) ===== */
-.cta-section { position: relative; }
-
-.cta-section::before {
-  content: '';
-  display: block;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(196, 30, 58, 0.2) 15%,
-    rgba(196, 30, 58, 0.35) 50%,
-    rgba(196, 30, 58, 0.2) 85%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: gradientShift 6s ease-in-out infinite;
-  margin-bottom: 120px;
-}
-
 .cta-section-inner { max-width: 680px; margin: 0 auto; }
 
 .cta-values {
@@ -368,25 +340,6 @@ body {
   border-top: 1px solid var(--divider);
   border-bottom: 1px solid var(--divider);
   position: relative;
-}
-
-/* ===== LIQUID GRADIENT (before partners) ===== */
-.partners-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(196, 30, 58, 0.15) 30%,
-    rgba(196, 30, 58, 0.25) 50%,
-    rgba(196, 30, 58, 0.15) 70%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: gradientShift 7s ease-in-out infinite;
 }
 
 .partners-grid {
@@ -524,5 +477,5 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
   .fade-item { opacity: 1 !important; transform: none !important; }
-  .glass-orb { opacity: 0.3 !important; animation: none !important; }
+  .mesh-blob { animation: none !important; }
 }
