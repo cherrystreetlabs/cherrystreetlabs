@@ -1,5 +1,5 @@
-// Cherry Street Labs — Liquid Cherry Shader (WebGL)
-// Option A: Dramatic flowing liquid cherry on cream
+// Cherry Street Labs — Apple Vision Pro Mesh Gradient (WebGL)
+// Option B: Flowing mesh gradient with cherry, sand, pink on cream
 (function() {
   'use strict';
   const canvas = document.getElementById('heroShader');
@@ -34,21 +34,22 @@
       void main() { gl_Position = vec4(a_position, 0.0, 1.0); }
     `;
 
-    // Liquid flow shader with noise-based distortion
+    // Apple Vision Pro mesh gradient shader
     const fs = `
       precision mediump float;
       uniform vec2 u_resolution;
       uniform float u_time;
 
-      // FBM noise for liquid distortion
+      // Smooth hash for noise
       float hash(vec2 p) {
         return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
       }
 
+      // Value noise with smooth interpolation
       float noise(vec2 p) {
         vec2 i = floor(p);
         vec2 f = fract(p);
-        vec2 u = f * f * (3.0 - 2.0 * f);
+        vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
         return mix(
           mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
           mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
@@ -56,20 +57,41 @@
         );
       }
 
+      // FBM with 5 octaves for rich organic distortion
       float fbm(vec2 p) {
         float f = 0.0;
-        f += 0.5000 * noise(p); p *= 2.02;
-        f += 0.2500 * noise(p); p *= 2.03;
-        f += 0.1250 * noise(p); p *= 2.01;
-        f += 0.0625 * noise(p);
-        return f / 0.9375;
+        float amp = 0.5;
+        float freq = 1.0;
+        for (int i = 0; i < 5; i++) {
+          f += amp * noise(p * freq);
+          freq *= 2.03;
+          amp *= 0.495;
+        }
+        return f;
       }
 
-      float blob(vec2 uv, vec2 center, float radius, float t) {
-        float d = length(uv - center) / radius;
-        float n = fbm(center * 3.0 + t * 0.5) * 0.15;
-        float w = smoothstep(1.0 + n, 0.1, d);
-        return w;
+      // Warped FBM for more organic, flowing shapes
+      float warpedFbm(vec2 p, float t) {
+        vec2 q = vec2(
+          fbm(p + vec2(0.0, 0.0) + 0.12 * t),
+          fbm(p + vec2(5.2, 1.3) + 0.10 * t)
+        );
+        vec2 r = vec2(
+          fbm(p + 4.0 * q + vec2(1.7, 9.2) + 0.08 * t),
+          fbm(p + 4.0 * q + vec2(8.3, 2.8) + 0.06 * t)
+        );
+        return fbm(p + 3.5 * r);
+      }
+
+      // Soft metaball blob with noise-warped edges
+      float blob(vec2 uv, vec2 center, float radius, float t, float seed) {
+        vec2 warp = vec2(
+          fbm(uv * 1.8 + seed + t * 0.04),
+          fbm(uv * 1.8 + seed + 50.0 + t * 0.035)
+        );
+        vec2 warped = uv + warp * 0.18;
+        float d = length(warped - center) / radius;
+        return smoothstep(1.0, 0.0, d);
       }
 
       void main() {
@@ -78,36 +100,71 @@
         vec2 p = vec2(uv.x * aspect, uv.y);
         float t = u_time;
 
-        // Base: warm cream
-        vec3 col = vec3(0.97, 0.95, 0.91);
+        // Base warm cream (#F5F2ED)
+        vec3 cream = vec3(0.961, 0.949, 0.929);
+        vec3 col = cream;
 
-        // Large flowing cherry blob (primary visual element)
-        vec2 cherryCenter = vec2(
-          0.5 + 0.3 * sin(t * 0.08) + 0.1 * sin(t * 0.17),
-          0.5 + 0.25 * cos(t * 0.06) + 0.1 * cos(t * 0.13)
+        // --- Blob 1: Primary cherry red (#C41E3A) — large, dominant ---
+        vec2 c1 = vec2(
+          aspect * 0.38 + 0.25 * sin(t * 0.055 + 0.0) + 0.1 * cos(t * 0.11),
+          0.55 + 0.2 * cos(t * 0.045 + 0.5) + 0.08 * sin(t * 0.09)
         );
-        float cherryFlow = blob(p, cherryCenter, 0.55, t);
+        float b1 = blob(p, c1, 0.65, t, 0.0);
+        vec3 cherry1 = vec3(0.769, 0.118, 0.227);
+        col = mix(col, cherry1, b1 * 0.40);
 
-        // Cherry color - rich and visible
-        float cherryIntensity = cherryFlow * 0.7;
-        col = mix(col, vec3(0.75, 0.12, 0.18), cherryIntensity);
-
-        // Secondary cherry pool - slower, adds depth
-        vec2 cherry2Center = vec2(
-          0.65 + 0.2 * cos(t * 0.11 + 1.5),
-          0.35 + 0.2 * sin(t * 0.09 + 0.8)
+        // --- Blob 2: Deep cherry (#A0162E) — overlapping secondary ---
+        vec2 c2 = vec2(
+          aspect * 0.62 + 0.18 * cos(t * 0.065 + 2.0),
+          0.40 + 0.22 * sin(t * 0.05 + 1.2)
         );
-        float cherry2 = blob(p, cherry2Center, 0.45, t * 0.8 + 10.0);
-        col = mix(col, vec3(0.65, 0.10, 0.16), cherry2 * 0.5);
+        float b2 = blob(p, c2, 0.58, t, 7.7);
+        vec3 cherry2 = vec3(0.627, 0.086, 0.180);
+        col = mix(col, cherry2, b2 * 0.35);
 
-        // Warm sand highlight blob
-        col += blob(p, vec2(0.3 + 0.15 * cos(t * 0.07), 0.7 + 0.1 * sin(t * 0.09)), 0.4, t * 0.5) * vec3(0.03, 0.025, 0.015);
+        // --- Blob 3: Warm sand (#E5DDD0) — balances warmth ---
+        vec2 c3 = vec2(
+          aspect * 0.28 + 0.2 * sin(t * 0.04 + 3.5),
+          0.7 + 0.15 * cos(t * 0.055 + 1.8)
+        );
+        float b3 = blob(p, c3, 0.6, t, 15.3);
+        vec3 sand = vec3(0.898, 0.867, 0.816);
+        col = mix(col, sand, b3 * 0.45);
 
-        // Soft bright cream highlight
-        col += blob(p, vec2(0.75 + 0.1 * sin(t * 0.14), 0.2 + 0.1 * cos(t * 0.11)), 0.35, t * 0.6) * vec3(0.04, 0.02, 0.01);
+        // --- Blob 4: Soft pink (#F0C4D0) — adds vibrancy ---
+        vec2 c4 = vec2(
+          aspect * 0.72 + 0.15 * cos(t * 0.07 + 4.2),
+          0.65 + 0.18 * sin(t * 0.048 + 2.5)
+        );
+        float b4 = blob(p, c4, 0.52, t, 23.1);
+        vec3 pink = vec3(0.941, 0.769, 0.816);
+        col = mix(col, pink, b4 * 0.40);
 
-        // Very subtle vignette
-        col *= 1.0 - 0.08 * dot(uv - 0.5, uv - 0.5) * 4.0;
+        // --- Blob 5: Cherry-pink blend — creates transitions ---
+        vec2 c5 = vec2(
+          aspect * 0.5 + 0.2 * sin(t * 0.038 + 5.7),
+          0.30 + 0.2 * cos(t * 0.058 + 3.0)
+        );
+        float b5 = blob(p, c5, 0.55, t, 31.9);
+        vec3 cherryPink = vec3(0.82, 0.22, 0.35);
+        col = mix(col, cherryPink, b5 * 0.30);
+
+        // --- Blob 6: Bright cream highlight (#FFF9F0) — luminous patches ---
+        vec2 c6 = vec2(
+          aspect * 0.45 + 0.12 * cos(t * 0.06 + 1.0),
+          0.5 + 0.15 * sin(t * 0.042 + 4.5)
+        );
+        float b6 = blob(p, c6, 0.48, t, 40.5);
+        vec3 brightCream = vec3(1.0, 0.976, 0.941);
+        col = mix(col, brightCream, b6 * 0.25);
+
+        // Global warped FBM overlay for organic color shifting
+        float warp = warpedFbm(p * 0.8, t * 0.3);
+        col = mix(col, col * (0.92 + 0.16 * warp), 0.5);
+
+        // Subtle vignette — Apple-style softness at edges
+        float vig = 1.0 - 0.12 * pow(length(uv - 0.5) * 1.4, 2.0);
+        col *= vig;
 
         gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
       }
