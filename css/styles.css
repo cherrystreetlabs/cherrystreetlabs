@@ -237,11 +237,9 @@ body {
 .cta-values {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
   margin-bottom: 3rem;
   margin-top: 2.5rem;
-  text-align: left;
 }
 
 .cta-value {
@@ -260,8 +258,8 @@ body {
 }
 
 .cta-section-inner .section-body {
-  margin: 0 auto 0;
-  text-align: center;
+  max-width: 600px;
+  text-align: left;
 }
 
 /* ===== FROSTED CARD for CTA ===== */
