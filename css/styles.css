@@ -232,7 +232,11 @@ body {
 }
 
 /* ===== CTA SECTION ===== */
-.cta-section-inner { max-width: 680px; margin: 0 auto; }
+.cta-section-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: left;
+}
 
 .cta-values {
   display: flex;
