@@ -442,7 +442,7 @@ body {
   .hero { padding: 3rem 1.5rem; min-height: 90vh; }
   .shader-toggle { bottom: 1rem; right: 1rem; font-size: 0.6rem; padding: 0.3rem 0.6rem; }
   .hero-inner { max-width: 100%; }
-  .hero-tagline { font-size: 1.15rem; }
+  .hero-tagline { font-size: 0.95rem; }
 
   .who-grid {
     grid-template-columns: 1fr;
