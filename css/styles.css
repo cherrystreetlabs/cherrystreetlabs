@@ -421,5 +421,4 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
   .fade-item { opacity: 1 !important; transform: none !important; }
-  .mesh-blob { animation: none !important; }
 }
