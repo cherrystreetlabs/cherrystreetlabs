@@ -100,36 +100,13 @@
     '  vec2 uv = gl_FragCoord.xy / u_resolution;',
     '  float t = u_time;',
     '',
-    '  // ── Sharp marble ──',
-    '  vec3 sharp = marbleColor(uv, t);',
+    '  vec3 color = marbleColor(uv, t);',
     '',
-    '  // ── Frosted glass blur — multi-sample approximation ──',
-    '  float br = 0.006;',
-    '  vec3 frosted = sharp;',
-    '  frosted += marbleColor(uv + vec2(br, 0.0), t);',
-    '  frosted += marbleColor(uv + vec2(-br, 0.0), t);',
-    '  frosted += marbleColor(uv + vec2(0.0, br), t);',
-    '  frosted += marbleColor(uv + vec2(0.0, -br), t);',
-    '  frosted *= 0.2;',
-    '',
-    '  // ── Blend sharp and frosted with subtle variation ──',
-    '  float frostNoise = noise(uv * 3.0 + t * 0.015);',
-    '  float frostMix = 0.35 + frostNoise * 0.1;',
-    '  vec3 color = mix(sharp, frosted, frostMix);',
-    '',
-    '  // ── Frosted glass tint — slight cool brightness ──',
-    '  float frostTint = fbm(uv * 2.0 + t * 0.012);',
-    '  color = mix(color, vec3(0.97, 0.96, 0.95), frostTint * 0.06);',
-    '',
-    '  // ── Minimal desaturation for glass feel ──',
-    '  float lum = dot(color, vec3(0.299, 0.587, 0.114));',
-    '  color = mix(color, vec3(lum), 0.03);',
-    '',
-    '  // ── Subtle vignette ──',
+    '  // Subtle vignette',
     '  vec2 vc = uv - 0.5;',
     '  color *= 1.0 - dot(vc, vc) * 0.15;',
     '',
-    '  // ── Anti-banding grain ──',
+    '  // Anti-banding grain',
     '  color += (hash(gl_FragCoord.xy + fract(t)) - 0.5) * 0.008;',
     '',
     '  gl_FragColor = vec4(color, 1.0);',
@@ -171,6 +148,9 @@
     canvas = document.getElementById('heroShader');
     if (!canvas) return;
 
+    // Prevent CSS animation from firing before shader is ready
+    canvas.style.animation = 'none';
+
     gl = canvas.getContext('webgl', { alpha: false });
     if (!gl) {
       canvas.style.background = '#F5F2ED';
@@ -209,6 +189,7 @@
 
     // ── Animation loop ──
     var startTime = performance.now();
+    var revealed = false;
 
     function frame() {
       resize();
@@ -217,6 +198,12 @@
       gl.uniform1f(uniforms.time, t);
       gl.uniform2f(uniforms.resolution, canvas.width, canvas.height);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+      // Show canvas after first successful frame
+      if (!revealed) {
+        revealed = true;
+        canvas.style.animation = 'shaderFadeIn 2.5s ease-out forwards';
+      }
 
       requestAnimationFrame(frame);
     }
