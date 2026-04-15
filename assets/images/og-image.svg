@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#F5F2ED"/>
+  <text x="600" y="290" font-family="'Instrument Serif', Georgia, serif" font-size="96" fill="#1A1714" text-anchor="middle" letter-spacing="-1">Cherry Street</text>
+  <text x="600" y="400" font-family="'Instrument Serif', Georgia, serif" font-size="72" fill="#6B6560" text-anchor="middle" font-style="italic" letter-spacing="4">Labs</text>
+  <text x="600" y="480" font-family="'Inter', system-ui, sans-serif" font-size="18" fill="#C41E3A" text-anchor="middle" letter-spacing="3" text-transform="uppercase" font-weight="600">SOFTWARE BUILT WITH PURPOSE</text>
+</svg>
