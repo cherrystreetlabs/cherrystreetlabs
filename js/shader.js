@@ -1,5 +1,6 @@
-// Cherry Street Labs — Shaders.com Liquid Silver preset (CSL colors)
-// Swirl + WaveDistortion + FilmGrain via shaders.com export
+// Cherry Street Labs — Shaders.com Rolling Shadows preset (CSL warm colors)
+// MultiPointGradient + WaveDistortion + Bulge + Paper texture
+// Mouse tracking: cherry accent follows cursor, bulge effect on hover
 import { createShader } from 'https://esm.sh/shaders@2.5.94/js'
 
 function initShader() {
@@ -9,55 +10,62 @@ function initShader() {
   createShader(canvas, {
     components: [
       {
-        type: 'Swirl',
-        id: 'idmgjtc8f83glwcml20',
+        type: 'MultiPointGradient',
+        id: 'idmnugm1723oyu2rxxm',
         props: {
-          blend: 15,
-          colorA: '#F5F2ED',
-          colorB: '#D4A0A0',
-          colorSpace: 'oklch',
-          detail: 1.7,
-          speed: 0.8,
+          colorA: '#F5F2ED',     // warm cream
+          colorB: '#D4A574',     // warm sand
+          colorC: '#E8DDD0',     // light cream
+          colorD: '#C41E3A',     // cherry red (mouse-following)
+          colorE: '#C9A88C',     // warm taupe
+          positionA: { x: 0.16, y: 0.38 },
+          positionB: { x: 0.61, y: 0.81 },
+          positionC: { x: 0.82, y: 0.45 },
+          positionD: {
+            type: 'mouse-position',
+            originX: 0.445,
+            originY: 0.2816725978647687,
+            momentum: 0.2,
+            smoothing: 0.6
+          },
+          positionE: { x: 0.53, y: 0.69 },
         },
       },
       {
         type: 'WaveDistortion',
-        id: 'idmh46tfzzha4wp1moq',
-        props: {
-          angle: 203,
-          edges: 'mirror',
-          frequency: 2.8,
-          speed: 2.5,
-          strength: 0.5,
-          visible: true,
-        },
+        id: 'idmnugqtmdlruhxq3vg',
       },
       {
-        type: 'CursorRipples',
-        id: 'idmli7wlt5z755vzxhu',
+        type: 'Bulge',
+        id: 'idmnugorjh9ehk29e3o',
         props: {
-          chromaticSplit: 0,
-          decay: 5,
-          intensity: 3,
+          center: {
+            type: 'mouse-position',
+            originX: 0.37,
+            originY: 0.6642984014209592,
+            momentum: 0.3,
+            smoothing: 0.8
+          },
+          falloff: 2,
           radius: 2,
         },
       },
       {
-        type: 'FilmGrain',
-        id: 'idmgjtgt7qxgeuyzgaz',
+        type: 'Paper',
+        id: 'idmnugq5fkhnw1lku1y',
         props: {
-          strength: 0.15,
+          displacement: 0.24,
+          grainScale: 3,
+          roughness: 0.1,
         },
-      },
+      }
     ],
   }).then(() => {
-    canvas.style.animation = 'shaderFadeIn 2.5s ease-out forwards'
     console.log('Shader loaded successfully')
   }).catch((err) => {
     console.error('Shader init failed:', err)
     canvas.style.background = '#F5F2ED'
     canvas.style.opacity = '1'
-    canvas.style.animation = 'none'
   })
 }
 
