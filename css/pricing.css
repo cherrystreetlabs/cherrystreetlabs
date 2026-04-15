@@ -167,7 +167,13 @@ body.pricing-page {
   padding: 2.2rem 2rem;
   position: relative;
   transition: border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
+.tier-features { flex: 1; }
+.tier-timeline { margin-top: auto; }
 
 .tier-card:hover { border-color: rgba(26, 23, 20, 0.15); }
 
