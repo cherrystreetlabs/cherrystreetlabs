@@ -12,9 +12,9 @@ function initShader() {
         type: 'Swirl',
         id: 'idmgjtc8f83glwcml20',
         props: {
-          blend: 35,
+          blend: 15,
           colorA: '#F5F2ED',
-          colorB: '#C41E3A',
+          colorB: '#D4A0A0',
           colorSpace: 'oklch',
           detail: 1.7,
           speed: 0.8,
@@ -30,6 +30,16 @@ function initShader() {
           speed: 2.5,
           strength: 0.5,
           visible: true,
+        },
+      },
+      {
+        type: 'CursorRipples',
+        id: 'idmli7wlt5z755vzxhu',
+        props: {
+          chromaticSplit: 0,
+          decay: 5,
+          intensity: 3,
+          radius: 2,
         },
       },
       {

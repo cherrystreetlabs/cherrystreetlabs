@@ -38,7 +38,7 @@ body {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 #heroShader {
@@ -65,9 +65,9 @@ body {
 
 /* ===== FROSTED GLASS CARD (hero) ===== */
 .hero-glass-card {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 20px;
   padding: 3.5rem 3rem;
@@ -80,7 +80,9 @@ body {
   .hero-glass-card {
     padding: 2.5rem 1.8rem;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
   }
 }
 
