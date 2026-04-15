@@ -157,7 +157,7 @@ body.pricing-page {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch; 
 }
 
 .tier-card {
@@ -171,9 +171,6 @@ body.pricing-page {
   flex-direction: column;
   height: 100%;
 }
-
-.tier-features { flex: 1; }
-.tier-timeline { margin-top: auto; }
 
 .tier-card:hover { border-color: rgba(26, 23, 20, 0.15); }
 
@@ -223,15 +220,17 @@ body.pricing-page {
   margin-top: 0.3rem;
 }
 
-.tier-divider { height: 1px; background: rgba(26, 23, 20, 0.06); margin-bottom: 1.3rem; }
-
-.tier-body { margin-bottom: 2rem; }
-
-.tier-include-note {
-  font-size: 0.8rem;
-  color: #9A9390;
+.tier-divider {
+  height: 1px;
+  background: rgba(26, 23, 20, 0.06);
+  margin-top: 1.5rem;
   margin-bottom: 0.8rem;
-  font-style: italic;
+}
+
+.tier-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .tier-features { list-style: none; padding: 0; margin: 0; }
@@ -247,11 +246,14 @@ body.pricing-page {
 
 .tier-features li::before { content: "✓"; color: #C41E3A; margin-right: 0.5rem; font-weight: 700; font-size: 0.8rem; }
 
+.tier-bottom {
+  margin-top: auto;
+}
+
 .tier-timeline {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.3rem;
-  padding-top: 1rem;
+  padding: 0.8rem 0;
   border-top: 1px solid rgba(26, 23, 20, 0.06);
 }
 
