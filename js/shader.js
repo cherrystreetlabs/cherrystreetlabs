@@ -16,9 +16,9 @@ async function initShader() {
           type: 'Swirl',
           id: 'idmgjtc8f83glwcml20',
           props: {
-            blend: 47,
-            colorA: '#e6e6e6',
-            colorB: '#b5b5b5',
+            blend: 20,
+            colorA: '#F5F2ED',
+            colorB: '#D4A0A0',
             colorSpace: 'oklch',
             detail: 1.7,
             speed: 0.8,
