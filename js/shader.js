@@ -1,32 +1,45 @@
 // Cherry Street Labs — Shaders.com Liquid Silver preset (CSL colors)
-// FlowingGradient: Liquid silk gradient with organic flowing color bands
+// Swirl + WaveDistortion + FilmGrain via shaders.com export
 import { createShader } from 'https://esm.sh/shaders@2.5.94/js'
 
 function initShader() {
   const canvas = document.getElementById('heroShader')
   if (!canvas) return
 
-  const rect = canvas.parentElement.getBoundingClientRect()
-  canvas.width = rect.width * window.devicePixelRatio
-  canvas.height = rect.height * window.devicePixelRatio
-
-  canvas.style.animation = 'none'
-
   createShader(canvas, {
     components: [
       {
-        type: 'FlowingGradient',
+        type: 'Swirl',
+        id: 'idmgjtc8f83glwcml20',
         props: {
-          colorA: '#F5F2ED',    // CSL cream
-          colorB: '#C41E3A',    // CSL cherry red
-          colorC: '#E8D5C4',    // warm cream accent
-          colorD: '#8B1428',    // dark cherry accent
-          speed: 0.4,
-          distortion: 0.5,
-          colorSpace: 'oklch'
-        }
-      }
-    ]
+          blend: 35,
+          colorA: '#F5F2ED',
+          colorB: '#C41E3A',
+          colorSpace: 'oklch',
+          detail: 1.7,
+          speed: 0.8,
+        },
+      },
+      {
+        type: 'WaveDistortion',
+        id: 'idmh46tfzzha4wp1moq',
+        props: {
+          angle: 203,
+          edges: 'mirror',
+          frequency: 2.8,
+          speed: 2.5,
+          strength: 0.5,
+          visible: true,
+        },
+      },
+      {
+        type: 'FilmGrain',
+        id: 'idmgjtgt7qxgeuyzgaz',
+        props: {
+          strength: 0.15,
+        },
+      },
+    ],
   }).then(() => {
     canvas.style.animation = 'shaderFadeIn 2.5s ease-out forwards'
     console.log('Shader loaded successfully')
@@ -38,17 +51,6 @@ function initShader() {
   })
 }
 
-// Wait for fonts and layout, then init
 window.addEventListener('DOMContentLoaded', () => {
   setTimeout(initShader, 100)
-})
-
-// Resize handler
-window.addEventListener('resize', () => {
-  const canvas = document.getElementById('heroShader')
-  if (canvas && canvas.width) {
-    const rect = canvas.parentElement.getBoundingClientRect()
-    canvas.width = rect.width * window.devicePixelRatio
-    canvas.height = rect.height * window.devicePixelRatio
-  }
 })
