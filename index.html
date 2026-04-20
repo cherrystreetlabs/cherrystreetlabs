@@ -26,7 +26,26 @@
             <div class="hero-glass-card">
                 <h1 class="brand-logo">Cherry Street<span class="brand-labs">Labs</span></h1>
                 <p class="hero-tagline">Concept to deployed. Owned by you.</p>
-                <a href="#who-we-are" class="btn-text scroll-down">Our story ↓</a>
+
+                <div class="mvp-callout">
+                    <div class="mvp-callout-title">Get a custom tailored MVP in 24 hours<sup>*</sup></div>
+                    <p class="mvp-callout-disclaimer">*Pending scope complexity. We'll scope your build and confirm timeline within 2 hours of your submission.</p>
+                </div>
+
+                <form class="mvp-form" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse" method="POST" target="_blank">
+                    <input type="hidden" name="fvv" value="1">
+                    <input type="hidden" name="draftResponse" value="[]">
+                    <input type="hidden" name="pageHistory" value="0">
+                    <div class="form-field">
+                        <label for="mvp-prompt">What do you want to build?</label>
+                        <textarea id="mvp-prompt" name="entry.1000000001" rows="4" placeholder="Describe your product idea, features, and goals..." required></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="mvp-email">Your email so we can deliver the build</label>
+                        <input type="email" id="mvp-email" name="entry.1000000002" placeholder="you@company.com" required>
+                    </div>
+                    <button type="submit" class="mvp-submit-btn">Build My MVP</button>
+                </form>
             </div>
         </div>
     </section>
@@ -53,16 +72,51 @@
         </div>
     </section>
 
+    <!-- How It Works -->
+    <section class="section how-it-works-section">
+        <div class="how-it-works-inner">
+            <span class="section-label">How it works</span>
+            <h2 class="section-headline">From idea to live preview in five steps.</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-num">1</span>
+                    <h3 class="step-name">Submit your idea</h3>
+                    <p class="step-desc">Tell us what you want to build in plain English. No technical jargon required.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">2</span>
+                    <h3 class="step-name">We scope it</h3>
+                    <p class="step-desc">Within 2 hours, we confirm scope, timeline, and price. Always transparent upfront.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">3</span>
+                    <h3 class="step-name">We build</h3>
+                    <p class="step-desc">Powered by Claude Opus 4.7, reviewed by a senior product engineer. Fast and quality-first.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">4</span>
+                    <h3 class="step-name">Your staging link</h3>
+                    <p class="step-desc">Get a live preview at cherrystreetlabs.com/angry-purple-tiger &mdash; each build gets its own unique name.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">5</span>
+                    <h3 class="step-name">Review and close</h3>
+                    <p class="step-desc">Check it out, hop on a call, and we go from there. No pressure, no obligation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA to Pricing -->
     <section class="section cta-section">
         <div class="cta-section-inner">
             <span class="section-label">What we build</span>
             <h2 class="section-headline">Launch-ready software,<br>not just code.</h2>
-            <p class="section-body">We take your idea from concept to deployed product. Choose a 2-week Sprint, a full Build, or work with us month-to-month on Subscription. You own everything when we're done. Starting at $5,000.</p>
+            <p class="section-body">We take your idea from concept to deployed product. Choose a 24-hour Sprint, a full Build, or work with us month-to-month on Subscription. You own everything when we're done. Starting at $5,000.</p>
             <div class="cta-values">
                 <div class="cta-value">
                     <span class="value-num">①</span>
-                    <span class="value-text">Sprint in 2 weeks, Build in 6</span>
+                    <span class="value-text">MVP in 24 hours*, Build in 4&ndash;6</span>
                 </div>
                 <div class="cta-value">
                     <span class="value-num">②</span>
