@@ -702,3 +702,10 @@ body {
         text-align: center;
     }
 }
+
+.form-status {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    min-height: 1.2em;
+}

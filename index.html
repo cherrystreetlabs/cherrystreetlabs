@@ -39,19 +39,17 @@
             <p class="section-body build-body">Tell us what you want to build, and we'll deliver a working prototype within a day. It's proof that your idea works — built by the same team that ships production software.</p>
             <p class="build-disclaimer">*Pending scope complexity. We'll confirm timeline and scope within 2 hours of your submission.</p>
 
-            <form class="build-form" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse" method="POST" target="_blank">
-                <input type="hidden" name="fvv" value="1">
-                <input type="hidden" name="draftResponse" value="[]">
-                <input type="hidden" name="pageHistory" value="0">
+            <form class="build-form" id="proto-form" novalidate>
                 <div class="form-field">
                     <label for="mvp-prompt">What do you want to build?</label>
-                    <textarea id="mvp-prompt" name="entry.1000000001" rows="4" placeholder="Describe your product idea, features, and goals..." required></textarea>
+                    <textarea id="mvp-prompt" name="prompt" rows="4" placeholder="Describe your product idea, features, and goals..." required></textarea>
                 </div>
                 <div class="form-field">
                     <label for="mvp-email">Your email so we can follow up</label>
-                    <input type="email" id="mvp-email" name="entry.1000000002" placeholder="you@company.com" required>
+                    <input type="email" id="mvp-email" name="email" placeholder="you@company.com" required>
                 </div>
-                <button type="submit" class="build-submit-btn">Get My Prototype</button>
+                <button type="submit" class="build-submit-btn" id="proto-submit-btn">Get My Prototype</button>
+                <div class="form-status" id="form-status"></div>
             </form>
         </div>
     </section>
@@ -165,6 +163,54 @@
                 });
             }, { threshold: 0.1 });
             observer.observe(el);
+        });
+    })();
+    </script>
+    <script>
+    (function() {
+        var form = document.getElementById('proto-form');
+        if (!form) return;
+        var btn = document.getElementById('proto-submit-btn');
+        var status = document.getElementById('form-status');
+        var endpoint = 'https://script.google.com/macros/s/AKfycbzV4VQJe_8q23GvCOiINazgCRbGuFtI2Zwyz2dL76u7EN4G764KMTtfN4sdKuTVww7e/exec';
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('mvp-email').value.trim();
+            var prompt = document.getElementById('mvp-prompt').value.trim();
+
+            if (!email || !prompt) {
+                status.textContent = 'Please fill in both fields.';
+                status.style.color = '#c1445e';
+                return;
+            }
+
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+
+            fetch(endpoint, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ email: email, prompt: prompt })
+            }).then(function() {
+                status.textContent = 'Got it! We\'ll review your idea and follow up within 2 hours.';
+                status.style.color = 'var(--accent)';
+                form.reset();
+                btn.textContent = 'Get My Prototype';
+                btn.disabled = false;
+                btn.style.opacity = '';
+                btn.style.cursor = '';
+            }).catch(function(err) {
+                status.textContent = 'Something went wrong. Please try again or email us directly.';
+                status.style.color = '#c1445e';
+                btn.textContent = 'Get My Prototype';
+                btn.disabled = false;
+                btn.style.opacity = '';
+                btn.style.cursor = '';
+            });
         });
     })();
     </script>
