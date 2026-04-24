@@ -32,20 +32,23 @@
                     <p class="mvp-callout-disclaimer">*Pending scope complexity. We'll scope your build and confirm timeline within 2 hours of your submission.</p>
                 </div>
 
-                <form class="mvp-form" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID_HERE/formResponse" method="POST" target="_blank">
-                    <input type="hidden" name="fvv" value="1">
-                    <input type="hidden" name="draftResponse" value="[]">
-                    <input type="hidden" name="pageHistory" value="0">
-                    <div class="form-field">
-                        <label for="mvp-prompt">What do you want to build?</label>
-                        <textarea id="mvp-prompt" name="entry.1000000001" rows="4" placeholder="Describe your product idea, features, and goals..." required></textarea>
-                    </div>
-                    <div class="form-field">
-                        <label for="mvp-email">Your email so we can deliver the build</label>
-                        <input type="email" id="mvp-email" name="entry.1000000002" placeholder="you@company.com" required>
-                    </div>
-                    <button type="submit" class="mvp-submit-btn">Build My MVP</button>
-                </form>
+                <form class="build-form" id="proto-form" novalidate>
+                <div class="form-field">
+                    <label for="mvp-prompt">What do you want to build?</label>
+                    <textarea id="mvp-prompt" name="prompt" rows="4" placeholder="Describe your product idea, features, and goals..." required></textarea>
+                </div>
+                <div class="form-field">
+                    <label for="mvp-email">Your email so we can follow up</label>
+                    <input type="email" id="mvp-email" name="email" placeholder="you@company.com" required>
+                </div>
+                <div data-beam="csl-beam" style="--beam-strength: 1.5;" id="proto-submit-wrapper">
+                    <button type="submit" class="build-submit-btn" id="proto-submit-btn">
+                        <span class="build-submit-label">Get My Prototype</span>
+                    </button>
+                    <div data-beam-bloom></div>
+                </div>
+                <div class="form-status" id="form-status"></div>
+            </form>
             </div>
         </div>
     </section>

@@ -1,5 +1,6 @@
 html { scroll-behavior: smooth; }
 
+/* Registered custom property for border-beam angle (must be at stylesheet root) */
 /* Cherry Street Labs — Landing Page */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -419,78 +420,6 @@ body {
   margin: 0;
 }
 
-/* ===== MVP FORM (hero) ===== */
-.mvp-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  max-width: 100%;
-  text-align: left;
-}
-
-.mvp-form .form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.mvp-form label {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 500;
-}
-
-.mvp-form textarea,
-.mvp-form input[type="email"] {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.9rem;
-  resize: vertical;
-  transition: border-color 0.2s ease, background 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.mvp-form textarea:focus,
-.mvp-form input[type="email"]:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.mvp-form textarea::placeholder,
-.mvp-form input[type="email"]::placeholder {
-  color: var(--text-muted);
-}
-
-.mvp-submit-btn {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  padding: 0.9rem 2.4rem;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-  margin: 6px auto 0;
-  width: auto;
-  align-self: center;
-}
-
-.mvp-submit-btn:hover {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
-}
-
 /* ===== HOW IT WORKS SECTION ===== */
 .how-it-works-section {
   background: var(--surface);
@@ -554,16 +483,6 @@ body {
   margin: 0;
 }
 
-/* ===== PRICING SPRINT FOOTNOTE ===== */
-.sprint-footnote {
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  margin-top: 0.35rem;
-  text-align: center;
-  font-style: italic;
-  line-height: 1.4;
-}
-
 /* ===== MOBILE ===== */
 @media screen and (max-width: 768px) {
   :root { --section-gap: 80px; }
@@ -616,3 +535,500 @@ body {
   .fade-item { opacity: 1 !important; transform: none !important; }
   .mesh-blob { animation: none !important; }
 }
+
+/* ---------- Border Beam: wrapper padding technique ----------
+ * Wrapper ALWAYS has 3px padding = beam ring space.
+ * Button ALWAYS has min-height: 50px = height stability.
+ * On loading, the wrapper gets an animated conic-gradient background.
+ * The button's solid background covers the center, leaving only the 3px ring.
+ * Sunset-ish palette: cherry red + beige/white hotspot.
+ */
+
+
+/* Legionnaire — Prototype Form Section */
+.build-section {
+    padding: 96px 60px;
+    background: #f5f0eb;
+}
+
+@keyframes build-fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.build-section-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.build-section .section-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.build-section .build-headline {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2.4rem, 5vw, 3.5rem);
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.build-section .build-headline sup {
+    font-size: 0.6em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+.build-section .build-body {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0 auto 16px;
+}
+
+.build-disclaimer {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.3);
+    margin: 0 0 40px;
+    font-family: 'Inter', sans-serif;
+}
+
+.build-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.build-form .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.build-form label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+}
+
+.build-form textarea,
+.build-form input[type="email"] {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+.build-form textarea:focus,
+.build-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(193, 68, 94, 0.1);
+}
+
+.build-form textarea::placeholder,
+.build-form input[type="email"]::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.build-form textarea {
+    min-height: 100px;
+}
+
+.build-submit-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.4;
+    height: 50px;
+    overflow: hidden;
+    box-sizing: border-box;
+    letter-spacing: 0.02em;
+}
+
+.build-submit-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.build-submit-btn:active {
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .build-section .section-label {
+        animation: build-fade 0.6s ease-out 0.1s backwards;
+    }
+    .build-section .build-headline {
+        animation: build-fade 0.6s ease-out 0.2s backwards;
+    }
+    .build-section .build-body {
+        animation: build-fade 0.6s ease-out 0.3s backwards;
+    }
+    .build-form {
+        animation: build-fade 0.6s ease-out 0.4s backwards;
+    }
+}
+
+@media (max-width: 768px) {
+    .build-section {
+        padding: 64px 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .build-section {
+        padding: 48px 24px;
+    }
+    .build-submit-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+
+/* ========================================
+   BORDER BEAM — Generated from border-beam library
+   Variant: sunset, Size: md, Theme: light
+   Duration: 1.96s, Strength: 0.7
+   ======================================== */
+
+@property --beam-angle-csl-beam {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+
+@property --beam-opacity-csl-beam {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+/* Wrapper — position: relative + overflow: hidden + border-radius */
+[data-beam="csl-beam"] {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Active state — spin + fade in */
+[data-beam="csl-beam"][data-active] {
+  animation:
+    beam-spin-csl-beam 1.96s linear infinite,
+    beam-fade-in-csl-beam 0.6s ease forwards;
+}
+
+/* Fading state — spin + fade out */
+[data-beam="csl-beam"][data-fading] {
+  animation:
+    beam-spin-csl-beam 1.96s linear infinite,
+    beam-fade-out-csl-beam 0.5s ease forwards;
+}
+
+/* STROKE LAYER (::after) — the visible beam ring on the border edge */
+[data-beam="csl-beam"][data-active]::after,
+[data-beam="csl-beam"][data-fading]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  padding: 3px;
+  clip-path: inset(0 round 8px);
+  background: conic-gradient(
+        from var(--beam-angle-csl-beam),
+        transparent 0%, transparent 50%,
+        rgba(255, 255, 255, 0.1) 55%,
+        rgba(255, 255, 255, 0.25) 60%,
+        rgba(255, 255, 255, 0.45) 65%,
+        rgba(255, 255, 255, 0.6) 68%,
+        rgba(255, 255, 255, 0.45) 71%,
+        rgba(255, 255, 255, 0.25) 76%,
+        rgba(255, 255, 255, 0.1) 81%,
+        transparent 86%, transparent 100%
+      ),radial-gradient(ellipse 70px 40px at 33% -7.4%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(ellipse 60px 35px at 12% -5%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(ellipse 40px 70px at 2.1% 68.3%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(ellipse 20px 35px at 2.1% 68.3%, rgba(255, 255, 255, 0.08), transparent),
+    radial-gradient(ellipse 180px 32px at 74.4% 100%, rgba(255, 255, 255, 0.12), transparent),
+    radial-gradient(ellipse 85px 26px at 55% 100%, rgba(245, 242, 237, 0.1), transparent),
+    radial-gradient(ellipse 74px 32px at 93.9% 0%, rgba(255, 255, 255, 0.14), transparent),
+    radial-gradient(ellipse 26px 42px at 100% 27.1%, rgba(255, 255, 255, 0.1), transparent),
+    radial-gradient(ellipse 52px 48px at 100% 27.1%, rgba(245, 242, 237, 0.12), transparent);
+  -webkit-mask:
+    conic-gradient(
+      from var(--beam-angle-csl-beam),
+      transparent 0%, transparent 20%,
+      rgba(255, 255, 255, 0.2) 28%, rgba(255, 255, 255, 0.5) 36%,
+      white 44%, white 80%,
+      rgba(255, 255, 255, 0.5) 88%, rgba(255, 255, 255, 0.2) 94%,
+      transparent 97%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask:
+    conic-gradient(
+      from var(--beam-angle-csl-beam),
+      transparent 0%, transparent 20%,
+      rgba(255, 255, 255, 0.2) 28%, rgba(255, 255, 255, 0.5) 36%,
+      white 44%, white 80%,
+      rgba(255, 255, 255, 0.5) 88%, rgba(255, 255, 255, 0.2) 94%,
+      transparent 97%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: intersect, exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-csl-beam) * 1.0 * var(--beam-strength, 1));
+  }
+
+/* INNER HAZE (::before) — soft glow inside the border */
+[data-beam="csl-beam"][data-active]::before,
+[data-beam="csl-beam"][data-fading]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: radial-gradient(ellipse 63px 36px at 33% -7.4%, rgba(255, 255, 255, 0.08), transparent),
+    radial-gradient(ellipse 54px 32px at 12% -5%, rgba(255, 255, 255, 0.06), transparent),
+    radial-gradient(ellipse 36px 63px at 2.1% 68.3%, rgba(245, 242, 237, 0.1), transparent),
+    radial-gradient(ellipse 18px 32px at 2.1% 68.3%, rgba(255, 255, 255, 0.06), transparent),
+    radial-gradient(ellipse 162px 29px at 74.4% 100%, rgba(255, 255, 255, 0.08), transparent),
+    radial-gradient(ellipse 77px 23px at 55% 100%, rgba(245, 242, 237, 0.06), transparent),
+    radial-gradient(ellipse 67px 29px at 93.9% 0%, rgba(255, 255, 255, 0.1), transparent),
+    radial-gradient(ellipse 23px 38px at 100% 27.1%, rgba(255, 255, 255, 0.06), transparent),
+    radial-gradient(ellipse 47px 43px at 100% 27.1%, rgba(245, 242, 237, 0.08), transparent);
+  box-shadow: inset 0 0 9px 1px rgba(0, 0, 0, 0.14);
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--beam-angle-csl-beam),
+      transparent 0%, transparent 20%,
+      rgba(255, 255, 255, 0.2) 28%, rgba(255, 255, 255, 0.5) 36%,
+      white 44%, white 80%,
+      rgba(255, 255, 255, 0.5) 88%, rgba(255, 255, 255, 0.2) 94%,
+      transparent 97%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  -webkit-mask-composite: source-in, source-over;
+  mask-image:
+    conic-gradient(
+      from var(--beam-angle-csl-beam),
+      transparent 0%, transparent 20%,
+      rgba(255, 255, 255, 0.2) 28%, rgba(255, 255, 255, 0.5) 36%,
+      white 44%, white 80%,
+      rgba(255, 255, 255, 0.5) 88%, rgba(255, 255, 255, 0.2) 94%,
+      transparent 97%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  mask-composite: intersect, add;
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(var(--beam-opacity-csl-beam) * 0.8 * var(--beam-strength, 1));
+  clip-path: inset(0 round 8px);
+  }
+
+/* BLOOM — outer glow */
+[data-beam="csl-beam"] [data-beam-bloom] {
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  clip-path: inset(0 round 8px);
+  background: conic-gradient(
+        from var(--beam-angle-csl-beam),
+        transparent 0%, transparent 54%,
+        rgba(255, 255, 255, 0.05) 58%,
+        rgba(255, 255, 255, 0.15) 62%,
+        rgba(255, 255, 255, 0.3) 66%,
+        rgba(255, 255, 255, 0.45) 68%,
+        rgba(255, 255, 255, 0.45) 70%,
+        rgba(255, 255, 255, 0.3) 72%,
+        rgba(255, 255, 255, 0.15) 76%,
+        rgba(255, 255, 255, 0.05) 80%,
+        transparent 84%
+      );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 3px;
+  filter: blur(8px) brightness(1.30) saturate(0.96);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="csl-beam"][data-active] [data-beam-bloom],
+[data-beam="csl-beam"][data-fading] [data-beam-bloom] {
+  display: block;
+  opacity: calc(var(--beam-opacity-csl-beam) * 0.7 * var(--beam-strength, 1));
+}
+
+@keyframes beam-spin-csl-beam {
+  to { --beam-angle-csl-beam: 360deg; }
+}
+
+@keyframes beam-fade-in-csl-beam {
+  to { --beam-opacity-csl-beam: 1; }
+}
+
+@keyframes beam-fade-out-csl-beam {
+  from { --beam-opacity-csl-beam: 1; }
+  to { --beam-opacity-csl-beam: 0; }
+}
+
+@keyframes beam-hue-shift-csl-beam {
+  0% { filter: hue-rotate(-30deg) brightness(1.30) saturate(0.96); }
+  50% { filter: hue-rotate(30deg) brightness(1.30) saturate(0.96); }
+  100% { filter: hue-rotate(-30deg) brightness(1.30) saturate(0.96); }
+}
+
+
+/* === CSL Button overrides === */
+[data-beam="csl-beam"] .build-submit-btn {
+    position: relative;
+    position: relative;
+    /* no z-index — let beam pseudo-elements render on top */
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    overflow: hidden;
+    width: 100%;
+    padding: 14px 32px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    text-align: center;
+    line-height: 1.4;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+[data-beam="csl-beam"] .build-submit-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+[data-beam="csl-beam"] .build-submit-btn:disabled {
+    cursor: default;
+}
+
+/* Loading: darker cherry */
+[data-beam="csl-beam"][data-active] .build-submit-btn {
+    background: linear-gradient(135deg, #a0162e 0%, #c41e3a 60%, #d4283e 100%);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Success: green */
+[data-beam="csl-beam"][data-success] .build-submit-btn {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    color: #fff;
+    cursor: default;
+}
+
+[data-beam="csl-beam"][data-success] .build-submit-btn .beam-check {
+    display: inline-block;
+    margin-right: 6px;
+    animation: beam-check-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Pulsing dots */
+.build-submit-btn .beam-dots {
+    display: inline-block;
+    width: 18px;
+    text-align: left;
+    letter-spacing: 2px;
+}
+
+.build-submit-btn .beam-dots span {
+    display: inline-block;
+    opacity: 0.2;
+    animation: beam-dot 1.2s ease-in-out infinite;
+}
+
+.build-submit-btn .beam-dots span:nth-child(1) { animation-delay: 0s; }
+.build-submit-btn .beam-dots span:nth-child(2) { animation-delay: 0.2s; }
+.build-submit-btn .beam-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes beam-dot {
+    0%, 80%, 100% { opacity: 0.2; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-2px); }
+}
+
+@keyframes beam-check-pop {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    60% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-beam="csl-beam"][data-active] { animation: none; }
+    .build-submit-btn .beam-dots span { animation: none; opacity: 0.6; }
+}
+
+
+
+/* Lock label position — prevents jump when text changes */
+.build-submit-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.form-status {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    min-height: 1.2em;
+}
+
+
