@@ -1,12 +1,6 @@
 html { scroll-behavior: smooth; }
 
 /* Registered custom property for border-beam angle (must be at stylesheet root) */
-@property --beam-angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-}
-
 /* Cherry Street Labs — Landing Page */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -685,120 +679,118 @@ body {
     cursor: default;
 }
 
-/* ---------- Border Beam wrapper ----------
- * The wrapper contains the button plus two beam overlays:
- *   .beam-ring — the animated 3px ring along the button border
- *   .beam-glow — a soft outer bloom that radiates beyond the button
- * Both are real <div> elements (no pseudo-elements) so the mask technique
- * from the border-beam library (padding + XOR mask) works reliably.
+/* ---------- Border Beam: padding-on-wrapper technique ----------
+ * The wrapper ALWAYS has 3px padding. The button fills the content-box.
+ * During loading, the wrapper gets an animated conic-gradient background.
+ * The button's solid background covers the center, so only the 3px ring shows.
+ * No masks, no pseudo-elements, no height shifts.
  */
+
+@property --beam-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .btn-beam-wrapper {
     position: relative;
     display: block;
     width: 100%;
-    border-radius: 8px;
+    padding: 3px;
+    border-radius: 11px;
     isolation: isolate;
     transition: box-shadow 0.35s ease;
 }
 
-/*
- * Beam ring — border-only beam using the canonical padding + XOR mask
- * technique. The element fills the wrapper (inset: 0), has `padding: 3px`,
- * and masks out the content-box so only the 3px padding ring is painted.
- * The conic-gradient rotates via --beam-angle to animate the beam.
- *
- * Colors adapted from the sunset palette: cherry red (#C41E3A) and
- * beige (#F5F2ED) with a white hot-spot in the middle of the beam arc.
- */
 .btn-beam-wrapper .beam-ring {
     position: absolute;
     inset: 0;
-    border-radius: 8px;
-    padding: 3px;
+    border-radius: 11px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-beam-wrapper .beam-glow {
+    position: absolute;
+    inset: -16px;
+    border-radius: 23px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.35s ease;
     background: conic-gradient(
         from var(--beam-angle),
         transparent 0%,
-        transparent 40%,
-        rgba(196, 30, 58, 0.55) 44%,
-        rgba(245, 242, 237, 0.75) 47%,
-        rgba(255, 255, 255, 0.95) 50%,
-        rgba(245, 242, 237, 0.75) 53%,
-        rgba(196, 30, 58, 0.55) 56%,
-        transparent 60%,
-        transparent 100%
-    );
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-}
-
-/*
- * Outer glow — a soft conic bloom that extends slightly past the button
- * edges. No mask — it's a blurred halo behind the button.
- */
-.btn-beam-wrapper .beam-glow {
-    position: absolute;
-    inset: -14px;
-    border-radius: 18px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    background: conic-gradient(
-        from var(--beam-angle),
-        transparent 0%,
         transparent 43%,
-        rgba(196, 30, 58, 0.32) 48%,
-        rgba(245, 242, 237, 0.38) 50%,
-        rgba(196, 30, 58, 0.32) 52%,
+        rgba(196, 30, 58, 0.15) 48%,
+        rgba(245, 242, 237, 0.2) 50%,
+        rgba(196, 30, 58, 0.15) 52%,
         transparent 57%,
         transparent 100%
     );
-    filter: blur(18px);
+    filter: blur(16px);
     z-index: -1;
 }
 
-/* --- Loading state: beam layers activate, button dimensions unchanged --- */
+/* Button fills content-box, covers wrapper center */
+.btn-beam-wrapper .build-submit-btn {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    background: var(--accent);
+}
+
+/* --- Loading state --- */
 .btn-beam-wrapper[data-loading] {
     box-shadow: 0 6px 24px -10px rgba(196, 30, 58, 0.35);
+    background: conic-gradient(
+        from var(--beam-angle),
+        transparent 0%,
+        transparent 40%,
+        rgba(196, 30, 58, 0.65) 44%,
+        rgba(245, 242, 237, 0.85) 47%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(245, 242, 237, 0.85) 53%,
+        rgba(196, 30, 58, 0.65) 56%,
+        transparent 60%,
+        transparent 100%
+    );
+    animation: beam-spin 2s linear infinite;
 }
 
 .btn-beam-wrapper[data-loading] .beam-ring,
 .btn-beam-wrapper[data-loading] .beam-glow {
     opacity: 1;
-    animation: beam-spin 2s linear infinite;
+}
+
+.btn-beam-wrapper[data-loading] .beam-ring {
+    box-shadow: inset 0 0 6px 2px rgba(196, 30, 58, 0.12);
 }
 
 .btn-beam-wrapper[data-loading] .build-submit-btn {
     background: linear-gradient(135deg, #a0162e 0%, #c41e3a 60%, #d4283e 100%);
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* --- Success state: beam hidden, button fades to green --- */
+/* --- Success state --- */
 .btn-beam-wrapper[data-success] {
     box-shadow: 0 8px 30px -12px rgba(22, 163, 74, 0.4);
     pointer-events: none;
+    background: transparent;
+    animation: none;
 }
 
 .btn-beam-wrapper[data-success] .beam-ring,
 .btn-beam-wrapper[data-success] .beam-glow {
     opacity: 0;
-    animation: none;
+    transition: opacity 0.3s ease;
 }
 
 .btn-beam-wrapper[data-success] .build-submit-btn {
     background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
     color: #fff;
     cursor: default;
-    opacity: 1;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -843,8 +835,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .btn-beam-wrapper[data-loading] .beam-ring,
-    .btn-beam-wrapper[data-loading] .beam-glow {
+    .btn-beam-wrapper[data-loading] {
         animation: none;
     }
     .build-submit-btn .beam-dots span {
