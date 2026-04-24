@@ -1015,6 +1015,17 @@ body {
 }
 
 
+
+/* Lock label position — prevents jump when text changes */
+.build-submit-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+}
+
 .form-status {
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
