@@ -675,7 +675,8 @@ body {
     justify-content: center;
     text-align: center;
     line-height: 1.4;
-    min-height: 50px;
+    height: 50px;
+    overflow: hidden;
     box-sizing: border-box;
     letter-spacing: 0.02em;
 }
@@ -768,7 +769,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 7px;
-  padding: 1px;
+  padding: 3px;
   clip-path: inset(0 round 8px);
   background: conic-gradient(
         from var(--beam-angle-csl-beam),
@@ -894,7 +895,7 @@ body {
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
-  padding: 1px;
+  padding: 3px;
   filter: blur(8px) brightness(1.30) saturate(0.96);
   pointer-events: none;
   z-index: 3;
@@ -930,13 +931,14 @@ body {
 /* === CSL Button overrides === */
 [data-beam="csl-beam"] .build-submit-btn {
     position: relative;
-    z-index: 4;
+    /* no z-index — let beam pseudo-elements render on top */
     background: var(--accent);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 50px;
+    height: 50px;
+    overflow: hidden;
     width: 100%;
     padding: 14px 32px;
     box-sizing: border-box;
