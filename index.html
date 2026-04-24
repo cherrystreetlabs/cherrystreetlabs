@@ -48,12 +48,11 @@
                     <label for="mvp-email">Your email so we can follow up</label>
                     <input type="email" id="mvp-email" name="email" placeholder="you@company.com" required>
                 </div>
-                <div class="btn-beam-wrapper" id="proto-submit-wrapper">
+                <div data-beam="csl-beam" style="--beam-strength: 0.7;" id="proto-submit-wrapper">
                     <button type="submit" class="build-submit-btn" id="proto-submit-btn">
                         <span class="build-submit-label">Get My Prototype</span>
                     </button>
-                    <div class="beam-ring" aria-hidden="true"></div>
-                    <div class="beam-glow" aria-hidden="true"></div>
+                    <div data-beam-bloom></div>
                 </div>
                 <div class="form-status" id="form-status"></div>
             </form>
@@ -177,7 +176,7 @@
         var form = document.getElementById('proto-form');
         if (!form) return;
         var btn = document.getElementById('proto-submit-btn');
-        var wrapper = document.getElementById('proto-submit-wrapper');
+        var wrapper = document.querySelector('[data-beam="csl-beam"]');
         var status = document.getElementById('form-status');
         var emailInput = document.getElementById('mvp-email');
         var promptInput = document.getElementById('mvp-prompt');
@@ -197,13 +196,14 @@
         }
 
         function enterLoadingState() {
-            wrapper.setAttribute('data-loading', '');
+            wrapper.setAttribute('data-active', '');
             label.innerHTML = SENDING_MARKUP;
             btn.disabled = true;
         }
 
         function enterSuccessState() {
-            wrapper.removeAttribute('data-loading');
+            wrapper.removeAttribute('data-active');
+            wrapper.setAttribute('data-fading', '');
             wrapper.setAttribute('data-success', '');
             label.innerHTML = SUCCESS_MARKUP;
             btn.disabled = true;
@@ -213,11 +213,14 @@
                 form.querySelectorAll('textarea, input'),
                 function(el) { el.disabled = true; }
             );
+            setTimeout(function() {
+                wrapper.removeAttribute('data-fading');
+            }, 500);
         }
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (wrapper.hasAttribute('data-success') || wrapper.hasAttribute('data-loading')) return;
+            if (wrapper.hasAttribute('data-success') || wrapper.hasAttribute('data-active')) return;
 
             var email = emailInput.value.trim();
             var prompt = promptInput.value.trim();
