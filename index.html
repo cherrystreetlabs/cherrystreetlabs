@@ -48,7 +48,10 @@
                     <label for="mvp-email">Your email so we can follow up</label>
                     <input type="email" id="mvp-email" name="email" placeholder="you@company.com" required>
                 </div>
-                <button type="submit" class="build-submit-btn" id="proto-submit-btn">Get My Prototype</button>
+                <div class="btn-beam-wrapper" id="proto-submit-wrapper" data-beam>
+                    <button type="submit" class="build-submit-btn" id="proto-submit-btn">Get My Prototype</button>
+                    <div data-beam-bloom></div>
+                </div>
                 <div class="form-status" id="form-status"></div>
             </form>
         </div>
@@ -171,10 +174,14 @@
         var form = document.getElementById('proto-form');
         if (!form) return;
         var btn = document.getElementById('proto-submit-btn');
+        var wrapper = document.getElementById('proto-submit-wrapper');
         var status = document.getElementById('form-status');
         var emailInput = document.getElementById('mvp-email');
         var promptInput = document.getElementById('mvp-prompt');
         var endpoint = 'https://script.google.com/macros/s/AKfycbx3tqiFX8dRwgGLT-8TN8-7f8WIrYrPeXVnECq7Opcb9ppDKqLZC4Dfy9ZdVeUnwq2M/exec';
+
+        var SENDING_MARKUP = 'Sending<span class="beam-dots"><span>.</span><span>.</span><span>.</span></span>';
+        var SUCCESS_MARKUP = '<span class="beam-check">✓</span> Got it! We\'ll follow up within 2 hours.';
 
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -182,11 +189,32 @@
 
         function setStatus(msg, type) {
             status.textContent = msg;
-            status.style.color = type === 'success' ? '#16a34a' : (type === 'error' ? '#c1445e' : 'var(--text-secondary)');
+            status.style.color = type === 'error' ? '#c1445e' : 'var(--text-secondary)';
+        }
+
+        function enterLoadingState() {
+            wrapper.setAttribute('data-loading', '');
+            btn.innerHTML = SENDING_MARKUP;
+            btn.disabled = true;
+        }
+
+        function enterSuccessState() {
+            wrapper.removeAttribute('data-loading');
+            wrapper.setAttribute('data-success', '');
+            btn.innerHTML = SUCCESS_MARKUP;
+            btn.disabled = true;
+            form.reset();
+            setStatus('Refresh the page to send another.', 'info');
+            Array.prototype.forEach.call(
+                form.querySelectorAll('textarea, input'),
+                function(el) { el.disabled = true; }
+            );
         }
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (wrapper.hasAttribute('data-success') || wrapper.hasAttribute('data-loading')) return;
+
             var email = emailInput.value.trim();
             var prompt = promptInput.value.trim();
             status.textContent = '';
@@ -201,40 +229,23 @@
                 emailInput.focus();
                 return;
             }
-
             if (!prompt) {
                 setStatus('Please describe what you want to build.', 'error');
                 promptInput.focus();
                 return;
             }
 
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
-            btn.style.cursor = 'not-allowed';
+            enterLoadingState();
 
-            fetch(endpoint, {
+            var minDelay = new Promise(function(resolve) { setTimeout(resolve, 1200); });
+            var request = fetch(endpoint, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ email: email, prompt: prompt })
-            }).then(function() {
-                setTimeout(function() {
-                    setStatus("Got it! We'll review your idea and follow up within 2 hours.", 'success');
-                    form.reset();
-                    btn.textContent = 'Get My Prototype';
-                    btn.disabled = false;
-                    btn.style.opacity = '';
-                    btn.style.cursor = '';
-                }, 600);
-            }).catch(function() {
-                setStatus("Got it! We'll review your idea and follow up within 2 hours.", 'success');
-                form.reset();
-                btn.textContent = 'Get My Prototype';
-                btn.disabled = false;
-                btn.style.opacity = '';
-                btn.style.cursor = '';
-            });
+            }).catch(function() { /* no-cors: success is assumed on resolve or reject */ });
+
+            Promise.all([request, minDelay]).then(enterSuccessState);
         });
     })();
     </script>

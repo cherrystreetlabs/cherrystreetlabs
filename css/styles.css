@@ -658,9 +658,12 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease, box-shadow 0.3s ease;
     width: 100%;
     letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+    display: block;
 }
 
 .build-submit-btn:hover {
@@ -670,6 +673,207 @@ body {
 
 .build-submit-btn:active {
     transform: translateY(0);
+}
+
+.build-submit-btn:disabled {
+    cursor: default;
+}
+
+/* ---------- Border Beam wrapper ---------- */
+@property --beam-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.btn-beam-wrapper {
+    position: relative;
+    border-radius: 10px;
+    isolation: isolate;
+    padding: 0;
+    background: transparent;
+    transition: padding 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+    width: 100%;
+}
+
+.btn-beam-wrapper .build-submit-btn {
+    transition: background 0.35s ease, color 0.35s ease, transform 0.15s ease, border-radius 0.35s ease;
+}
+
+/* Beam ring */
+.btn-beam-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: conic-gradient(
+        from var(--beam-angle),
+        transparent 0%,
+        transparent 30%,
+        rgba(196, 30, 58, 0.55) 40%,
+        rgba(220, 80, 60, 0.85) 45%,
+        rgba(255, 150, 90, 0.95) 50%,
+        rgba(220, 80, 60, 0.85) 55%,
+        rgba(196, 30, 58, 0.55) 60%,
+        transparent 70%,
+        transparent 100%
+    );
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+/* Inner haze layer */
+.btn-beam-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 12px;
+    background: conic-gradient(
+        from var(--beam-angle),
+        transparent 0%,
+        transparent 35%,
+        rgba(196, 30, 58, 0.15) 45%,
+        rgba(255, 150, 90, 0.28) 50%,
+        rgba(196, 30, 58, 0.15) 55%,
+        transparent 65%,
+        transparent 100%
+    );
+    filter: blur(6px);
+    opacity: 0;
+    z-index: -2;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+/* Outer bloom glow */
+.btn-beam-wrapper [data-beam-bloom] {
+    position: absolute;
+    inset: -18px;
+    border-radius: 24px;
+    background: conic-gradient(
+        from var(--beam-angle),
+        transparent 0%,
+        transparent 38%,
+        rgba(196, 30, 58, 0.35) 48%,
+        rgba(255, 140, 80, 0.45) 50%,
+        rgba(196, 30, 58, 0.35) 52%,
+        transparent 62%,
+        transparent 100%
+    );
+    filter: blur(22px);
+    opacity: 0;
+    z-index: -3;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* --- Loading state --- */
+.btn-beam-wrapper[data-loading] {
+    padding: 3px;
+    background: rgba(196, 30, 58, 0.04);
+    box-shadow: 0 6px 24px -10px rgba(196, 30, 58, 0.35);
+}
+
+.btn-beam-wrapper[data-loading]::before,
+.btn-beam-wrapper[data-loading]::after {
+    opacity: 1;
+    animation: beam-spin 2s linear infinite;
+}
+
+.btn-beam-wrapper[data-loading] [data-beam-bloom] {
+    opacity: 1;
+    animation: beam-spin 2s linear infinite;
+}
+
+.btn-beam-wrapper[data-loading] .build-submit-btn {
+    background: #fffaf9;
+    color: var(--accent);
+    border-radius: 7px;
+    transform: none !important;
+    box-shadow: inset 0 0 0 1px rgba(196, 30, 58, 0.08);
+}
+
+.btn-beam-wrapper[data-loading] .build-submit-btn:hover {
+    background: #fffaf9;
+    transform: none;
+}
+
+/* --- Success state --- */
+.btn-beam-wrapper[data-success] {
+    padding: 0;
+    background: transparent;
+    box-shadow: 0 8px 30px -12px rgba(22, 163, 74, 0.4);
+    pointer-events: none;
+}
+
+.btn-beam-wrapper[data-success]::before,
+.btn-beam-wrapper[data-success]::after,
+.btn-beam-wrapper[data-success] [data-beam-bloom] {
+    opacity: 0;
+    animation: none;
+}
+
+.btn-beam-wrapper[data-success] .build-submit-btn {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    color: #fff;
+    cursor: default;
+    transform: none !important;
+    opacity: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-beam-wrapper[data-success] .build-submit-btn .beam-check {
+    display: inline-block;
+    margin-right: 6px;
+    animation: beam-check-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Pulsing dots for "Sending" */
+.build-submit-btn .beam-dots {
+    display: inline-block;
+    width: 18px;
+    text-align: left;
+    letter-spacing: 2px;
+}
+
+.build-submit-btn .beam-dots span {
+    display: inline-block;
+    opacity: 0.2;
+    animation: beam-dot 1.2s ease-in-out infinite;
+}
+
+.build-submit-btn .beam-dots span:nth-child(1) { animation-delay: 0s; }
+.build-submit-btn .beam-dots span:nth-child(2) { animation-delay: 0.2s; }
+.build-submit-btn .beam-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes beam-dot {
+    0%, 80%, 100% { opacity: 0.2; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-2px); }
+}
+
+@keyframes beam-spin {
+    from { --beam-angle: 0deg; }
+    to { --beam-angle: 360deg; }
+}
+
+@keyframes beam-check-pop {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    60% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-beam-wrapper[data-loading]::before,
+    .btn-beam-wrapper[data-loading]::after,
+    .btn-beam-wrapper[data-loading] [data-beam-bloom] {
+        animation: none;
+    }
+    .build-submit-btn .beam-dots span {
+        animation: none;
+        opacity: 0.6;
+    }
 }
 
 @media (prefers-reduced-motion: no-preference) {
