@@ -689,91 +689,137 @@ body {
     inherits: false;
 }
 
-/* Wrapper ALWAYS reserves 3px ring space — no height jump between states. */
+/*
+ * Wrapper is the EXACT SAME SIZE as the button — no padding, no border.
+ * The button keeps its original dimensions always. Beam layers are absolutely
+ * positioned overlays; the height of the wrapper never shifts between states.
+ */
 .btn-beam-wrapper {
     position: relative;
-    border-radius: 10px;
-    isolation: isolate;
-    padding: 3px;
-    background: transparent;
-    transition: background 0.35s ease, box-shadow 0.35s ease;
+    display: block;
     width: 100%;
+    border-radius: 8px;
+    isolation: isolate;
+    transition: box-shadow 0.35s ease;
 }
 
+/*
+ * Button sits in its own stacking context so the beam (z-index: 2 on wrapper)
+ * paints OVER its background. Text inside the button is part of that context,
+ * so it sits under the beam — which is fine because the beam is masked to only
+ * the 3px inner edge, not over the label area.
+ */
 .btn-beam-wrapper .build-submit-btn {
-    border-radius: 7px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
     transition: background 0.35s ease, color 0.35s ease, transform 0.15s ease;
 }
 
-/* Beam ring — rides the 3px padding around the button. Hidden by default. */
+/*
+ * Beam ring (::before) — canonical border-mask technique from the border-beam
+ * library. The element has `padding: 3px` and a mask built from two layers:
+ *   1. `linear-gradient(#fff 0 0) content-box` — white only on the content box
+ *   2. `linear-gradient(#fff 0 0)`              — white on the full box
+ * `mask-composite: exclude` (xor) subtracts layer 1 from layer 2, leaving
+ * white ONLY in the 3px padding ring. The conic-gradient background then
+ * shows only along that inner border — the beam appears INSIDE the button's
+ * edge rather than outside it.
+ */
 .btn-beam-wrapper::before {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: inherit;
+    border-radius: 8px;
+    padding: 3px;
     background: conic-gradient(
         from var(--beam-angle),
         transparent 0%,
         transparent 40%,
-        rgba(196, 30, 58, 0.5) 45%,
-        rgba(245, 242, 237, 0.6) 48%,
-        rgba(196, 30, 58, 0.5) 50%,
-        transparent 55%,
+        rgba(196, 30, 58, 0.55) 44%,
+        rgba(245, 242, 237, 0.75) 47%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(245, 242, 237, 0.75) 53%,
+        rgba(196, 30, 58, 0.55) 56%,
+        transparent 60%,
         transparent 100%
     );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
     opacity: 0;
-    z-index: -1;
+    z-index: 2;
     pointer-events: none;
     transition: opacity 0.35s ease;
 }
 
-/* Inner haze — soft blurred overlay just outside the ring for depth. */
+/*
+ * Inner haze (::after) — same mask + padding technique, but blurred for a
+ * soft halo along the inside border. Slightly wider padding (4px) so the blur
+ * lands just inside the beam ring.
+ */
 .btn-beam-wrapper::after {
     content: "";
     position: absolute;
-    inset: -2px;
-    border-radius: 12px;
+    inset: 0;
+    border-radius: 8px;
+    padding: 4px;
     background: conic-gradient(
         from var(--beam-angle),
         transparent 0%,
         transparent 42%,
-        rgba(196, 30, 58, 0.15) 47%,
-        rgba(245, 242, 237, 0.2) 50%,
-        rgba(196, 30, 58, 0.15) 53%,
+        rgba(196, 30, 58, 0.3) 47%,
+        rgba(245, 242, 237, 0.4) 50%,
+        rgba(196, 30, 58, 0.3) 53%,
         transparent 58%,
         transparent 100%
     );
-    filter: blur(6px);
-    box-shadow: inset 0 0 8px rgba(196, 30, 58, 0.15);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    filter: blur(3px);
     opacity: 0;
-    z-index: -2;
+    z-index: 2;
     pointer-events: none;
     transition: opacity 0.35s ease;
 }
 
-/* Outer bloom — widest, softest glow behind the whole button. */
+/*
+ * Outer bloom — sits BEHIND the button (z-index: 0) with inset: -18px so it
+ * only shows beyond the button's edges as a soft outer glow.
+ */
 .btn-beam-wrapper [data-beam-bloom] {
     position: absolute;
     inset: -18px;
-    border-radius: 24px;
+    border-radius: 22px;
     background: conic-gradient(
         from var(--beam-angle),
         transparent 0%,
         transparent 43%,
-        rgba(196, 30, 58, 0.3) 48%,
-        rgba(245, 242, 237, 0.35) 50%,
-        rgba(196, 30, 58, 0.3) 52%,
+        rgba(196, 30, 58, 0.28) 48%,
+        rgba(245, 242, 237, 0.32) 50%,
+        rgba(196, 30, 58, 0.28) 52%,
         transparent 57%,
         transparent 100%
     );
-    filter: blur(22px);
+    filter: blur(20px);
     opacity: 0;
-    z-index: -3;
+    z-index: 0;
     pointer-events: none;
     transition: opacity 0.4s ease;
 }
 
-/* --- Loading state --- padding already reserved; only visuals change. */
+/* --- Loading state: wrapper dimensions unchanged, beam layers activate --- */
 .btn-beam-wrapper[data-loading] {
     box-shadow: 0 6px 24px -10px rgba(196, 30, 58, 0.35);
 }
@@ -802,7 +848,7 @@ body {
     transform: none;
 }
 
-/* --- Success state --- padding stays 3px to preserve height. Beam hidden. */
+/* --- Success state: beam hidden, button fades to green --- */
 .btn-beam-wrapper[data-success] {
     box-shadow: 0 8px 30px -12px rgba(22, 163, 74, 0.4);
     pointer-events: none;
