@@ -208,7 +208,6 @@
             label.innerHTML = SUCCESS_MARKUP;
             btn.disabled = true;
             form.reset();
-            setStatus('Refresh the page to send another.', 'info');
             Array.prototype.forEach.call(
                 form.querySelectorAll('textarea, input'),
                 function(el) { el.disabled = true; }
